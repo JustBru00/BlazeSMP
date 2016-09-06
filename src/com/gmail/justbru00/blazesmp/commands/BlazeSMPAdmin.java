@@ -1,9 +1,14 @@
 package com.gmail.justbru00.blazesmp.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
+import com.gmail.justbru00.blazesmp.enums.Team;
+import com.gmail.justbru00.blazesmp.main.Main;
+import com.gmail.justbru00.blazesmp.utils.Debug;
 import com.gmail.justbru00.blazesmp.utils.Messager;
 
 public class BlazeSMPAdmin implements CommandExecutor {
@@ -14,19 +19,50 @@ public class BlazeSMPAdmin implements CommandExecutor {
 			if (sender.hasPermission("blazesmp.admin")) {
 				if (args.length > 0) {
 					if (args[0].equalsIgnoreCase("gui")) {
-						// Open Admin GUI
-					} else if (args[0].equalsIgnoreCase("setteam")) {
+						Debug.send("Ready to open the GUI.");
 						
+						// TODO Open Admin GUI
+						
+						return true;
+					} else if (args[0].equalsIgnoreCase("setteam")) { // /blazesmpadmin setteam [player] [team] <reason>
+						Debug.send("Handling setteam in /blazesmpadmin");
+						
+						if (args.length >= 3)  { // Required Args handling.
+							
+							Player commandTarget = null;
+							
+							// Safely check for the requested player.
+							try {
+								commandTarget = Bukkit.getPlayer(args[1]);
+							} catch (Exception e) {
+								Messager.msgSender("&cYeah.... you need to type a player name. In other news please thank JustBru00 for making that try and catch block.", sender);
+								if (Main.debug) e.printStackTrace(); // Only print error if debug is true.
+								return true;
+							}
+							// Player checks out. Yea!
+							
+							Team setTeam = null;
+							
+							if (args[2].equalsIgnoreCase("ICE")) setTeam = Team.ICE;
+							if (args[2].equalsIgnoreCase("NETHER")) setTeam = Team.NETHER;
+							if (args[2].equalsIgnoreCase("NONE")) setTeam = Team.NONE;
+							
+							
+							return true;
+						} else {
+							Messager.msgSender("&cPlease follow usage for /blazesmpadmin setteam [player] [team] <reason>.", sender);
+							return true;
+						}						
 					} else {
-						Messager.msgSender("&fHey ", sender);
+						Messager.msgSender("&fHey please type an argument after /blazesmpadmin. (Or just type 'gui' after it.)", sender);
 						return true;
 					}
 				} else {
-					Messager.msgSender("&fSo you want the GUI huh? Then type /blazesmpadmin gui. How hard is that? (No args)", sender);
+					Messager.msgSender("&cSo you want the GUI huh? Then type /blazesmpadmin gui. How hard is that? (No args)", sender);
 					return true;	
 				}					
 			} else {
-				Messager.msgSender("&4Sorry can only command admins that use. (No permission)", sender);
+				Messager.msgSender("&cSorry can only command admins that use. (No permission)", sender);
 				return true;				
 			}
 		}

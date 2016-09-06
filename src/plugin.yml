@@ -13,4 +13,11 @@ commands:
     usage: /core 
   peace:
     description: Tells the other team you would like to end the war peacefully.
-    usage: /peace <optional reason>        
+    usage: /peace <optional reason>
+  lock:
+    description: Locks a chest from your team.
+    usage: /lock <optional reason>
+  requestteam:
+    description: Allows you to request being changed to a team. Make sure to provide a reason.
+    usage: (Required teamName) <optional reason> 
+    aliases: [rt] 
