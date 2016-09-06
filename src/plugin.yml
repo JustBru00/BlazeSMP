@@ -1,0 +1,16 @@
+name: BlazeSMP
+version: 1.0
+main: com.gmail.justbru00.blazesmp.main.Main
+commands:
+  blazesmpadmin:
+    description: The admin for everything in BlazeSMP.
+    aliases: [bsa]
+  war:
+    description: Starts a war with the other team. (Only if there is a similar number of players online on both teams.)    
+    usage: /war <optional reason>
+  core:
+    description: Checks the status of your core.
+    usage: /core 
+  peace:
+    description: Tells the other team you would like to end the war peacefully.
+    usage: /peace <optional reason>        

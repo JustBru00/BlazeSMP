@@ -1,0 +1,15 @@
+teams:
+  nether:
+    active: 0
+  ice: 
+    active: 0
+    
+players:
+  active:
+    HASHMAPHERE (KEY = UUID, DATA = Long leavetime)
+  data:
+    UUID:
+      team: 'Stuff Here'
+    28f9bb08-b33c-4a7d-b098-ebf271383966:
+      team: 'NONE'      
+    
