@@ -43,10 +43,17 @@ public class BlazeSMPAdmin implements CommandExecutor {
 							
 							Team setTeam = null;
 							
-							if (args[2].equalsIgnoreCase("ICE")) setTeam = Team.ICE;
-							if (args[2].equalsIgnoreCase("NETHER")) setTeam = Team.NETHER;
-							if (args[2].equalsIgnoreCase("NONE")) setTeam = Team.NONE;
-							
+							if (args[2].equalsIgnoreCase("ICE"))  {
+								setTeam = Team.ICE;
+							} else if (args[2].equalsIgnoreCase("NETHER"))  {
+								setTeam = Team.NETHER;
+							} else if (args[2].equalsIgnoreCase("NONE")) {
+								setTeam = Team.NONE;
+							} else {
+								Messager.msgSender("&cSorry you need to type a proper team. WHY YOU DO THIS?!", sender);
+								return true;								
+							}							
+							// TODO LOG WHEN PLAYER CHANGES TEAM.
 							
 							return true;
 						} else {

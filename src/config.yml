@@ -11,5 +11,8 @@ players:
     UUID:
       team: 'Stuff Here'
     28f9bb08-b33c-4a7d-b098-ebf271383966:
-      team: 'NONE'      
+      team: 'NONE'     
+      
+log:
+ 
     

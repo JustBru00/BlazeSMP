@@ -38,6 +38,8 @@ public class Main extends JavaPlugin implements CommandExecutor {
 		plugin = this;
 		Messager.msgConsole("&aStarting Plugin...");
 		
+		saveDefaultConfig();
+		
 		// Register Command Executors 
 		getCommand("blazesmpadmin").setExecutor(new BlazeSMPAdmin());
 		
