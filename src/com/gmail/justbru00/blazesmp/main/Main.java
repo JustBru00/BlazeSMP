@@ -39,6 +39,7 @@ public class Main extends JavaPlugin implements CommandExecutor {
 		Messager.msgConsole("&aStarting Plugin...");
 		
 		saveDefaultConfig();
+		readyScoreboardTeams();
 		
 		// Register Command Executors 
 		getCommand("blazesmpadmin").setExecutor(new BlazeSMPAdmin());
@@ -47,6 +48,21 @@ public class Main extends JavaPlugin implements CommandExecutor {
 	
 	public static Main getInstance(){
 		return plugin;
+	}
+	
+	public static void readyScoreboardTeams() {
+		Bukkit.dispatchCommand(clogger, "scoreboard teams add NETHER");
+		Bukkit.dispatchCommand(clogger, "scoreboard teams add ICE");
+		Bukkit.dispatchCommand(clogger, "scoreboard teams add NONE");
+		Bukkit.dispatchCommand(clogger, "scoreboard teams option NETHER color red");
+		Bukkit.dispatchCommand(clogger, "scoreboard teams option ICE color aqua");
+		Bukkit.dispatchCommand(clogger, "scoreboard teams option NONE color gray");
+		Bukkit.dispatchCommand(clogger, "scoreboard teams option NETHER friendlyFire false");
+		Bukkit.dispatchCommand(clogger, "scoreboard teams option ICE friendlyFire false");
+		Bukkit.dispatchCommand(clogger, "scoreboard teams option NONE friendlyFire false");
+		Bukkit.dispatchCommand(clogger, "scoreboard teams option NETHER seeFriendlyInvisibles true");
+		Bukkit.dispatchCommand(clogger, "scoreboard teams option ICE seeFriendlyInvisibles true");
+		Bukkit.dispatchCommand(clogger, "scoreboard teams option NONE seeFriendlyInvisibles true");
 	}
 
 }

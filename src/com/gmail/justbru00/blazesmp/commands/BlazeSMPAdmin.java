@@ -10,6 +10,10 @@ import com.gmail.justbru00.blazesmp.enums.Team;
 import com.gmail.justbru00.blazesmp.main.Main;
 import com.gmail.justbru00.blazesmp.utils.Debug;
 import com.gmail.justbru00.blazesmp.utils.Messager;
+import com.gmail.justbru00.blazesmp.utils.PluginLogger;
+import com.gmail.justbru00.blazesmp.utils.TeamHandler;
+
+import net.md_5.bungee.api.ChatColor;
 
 public class BlazeSMPAdmin implements CommandExecutor {
 
@@ -53,8 +57,11 @@ public class BlazeSMPAdmin implements CommandExecutor {
 								Messager.msgSender("&cSorry you need to type a proper team. WHY YOU DO THIS?!", sender);
 								return true;								
 							}							
-							// TODO LOG WHEN PLAYER CHANGES TEAM.
 							
+							String oldTeam = TeamHandler.getColoredTeamName(TeamHandler.getTeam(commandTarget));
+							TeamHandler.setTeam(commandTarget, setTeam);
+							Messager.msgSender("&aSwitched player " + commandTarget.getName() + " from " + oldTeam + " to " + TeamHandler.getColoredTeamName(TeamHandler.getTeam(commandTarget)) + ".", sender);
+							PluginLogger.log(ChatColor.stripColor(sender.getName() + " switched player " + commandTarget.getName() + " from " + oldTeam + " to " + TeamHandler.getColoredTeamName(TeamHandler.getTeam(commandTarget)) + "."));
 							return true;
 						} else {
 							Messager.msgSender("&cPlease follow usage for /blazesmpadmin setteam [player] [team] <reason>.", sender);

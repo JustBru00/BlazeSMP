@@ -10,11 +10,12 @@ public class PluginLogger {
 		ArrayList<String> oldLog = getLog();
 		
 		// MM-DD-YYYY HH:MM:SS -> logreason
-		
-		oldLog.add(TimeGetter.getCurrentTimeStamp() + " -> " + whatToLog);
+		String log = TimeGetter.getCurrentTimeStamp() + " -> " + whatToLog;
+		oldLog.add(log);
 		
 		Main.getInstance().getConfig().set("log", oldLog);
 		Main.getInstance().saveConfig();
+		Debug.send("Attempted to log: " + log);
 	}
 	
 	@SuppressWarnings("unchecked")

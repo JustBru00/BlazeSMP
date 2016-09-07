@@ -1,9 +1,15 @@
 teams:
   nether:
     active: 0
+    name: '&cNETHER'
+    color: '&c'
   ice: 
     active: 0
-    
+    name: '&bICE'
+    color: '&b'
+  none:
+    name: '&7NONE'  
+    color: '&7'  
 players:
   active:
     HASHMAPHERE (KEY = UUID, DATA = Long leavetime)
