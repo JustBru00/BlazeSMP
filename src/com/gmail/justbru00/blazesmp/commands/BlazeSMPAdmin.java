@@ -58,9 +58,9 @@ public class BlazeSMPAdmin implements CommandExecutor {
 								return true;								
 							}							
 							
-							String oldTeam = TeamHandler.getColoredTeamName(TeamHandler.getTeam(commandTarget));
-							TeamHandler.setTeam(commandTarget, setTeam);
-							Messager.msgSender("&aSwitched player " + commandTarget.getName() + " from " + oldTeam + " to " + TeamHandler.getColoredTeamName(TeamHandler.getTeam(commandTarget)) + ".", sender);
+							String oldTeam = TeamHandler.getColoredTeamName(TeamHandler.getTeam(commandTarget)); // Remember Old team for message and logging
+							TeamHandler.setTeam(commandTarget, setTeam); // Set the team
+							Messager.msgSender("&aSwitched player " + commandTarget.getName() + " from " + oldTeam + " to " + TeamHandler.getColoredTeamName(TeamHandler.getTeam(commandTarget)) + ".", sender); // Tell sender they change the persons team successfully.
 							PluginLogger.log(ChatColor.stripColor(sender.getName() + " switched player " + commandTarget.getName() + " from " + oldTeam + " to " + TeamHandler.getColoredTeamName(TeamHandler.getTeam(commandTarget)) + "."));
 							return true;
 						} else {
