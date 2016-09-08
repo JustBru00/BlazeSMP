@@ -23,8 +23,8 @@ public class Main extends JavaPlugin implements CommandExecutor {
 	public static boolean debug = true;
 	public static final String PREFIX = Messager.color("&8[&6Blaze&cSMP&8] &f");
 	public static Main plugin;
-	public static ScoreboardManager sm = Bukkit.getScoreboardManager();
-	public static Scoreboard board = sm.getMainScoreboard();	
+	public static ScoreboardManager sm;
+	public static Scoreboard board;	
 	public static Team ICE;
 	public static Team NETHER;
 	public static Team NONE;
@@ -66,6 +66,10 @@ public class Main extends JavaPlugin implements CommandExecutor {
 	
 	
 	public static void readyScoreboardTeams() { 
+		
+		sm = Bukkit.getScoreboardManager();
+		board = sm.getMainScoreboard();
+		
 		try { // ICE
 		 ICE = board.registerNewTeam("ICE");		 
 		} catch (IllegalArgumentException e) {
@@ -85,16 +89,16 @@ public class Main extends JavaPlugin implements CommandExecutor {
 		}
 		
 		// Ice Setup
-		ICE.setAllowFriendlyFire(false);
-		ICE.setPrefix(Messager.color("&a"));
+		//ICE.setAllowFriendlyFire(false);
+		//ICE.setPrefix(Messager.color("&a"));
 		
 		// Nether Setup
-		NETHER.setAllowFriendlyFire(false);
-		NETHER.setPrefix(Messager.color("&c"));
+		//NETHER.setAllowFriendlyFire(false);
+		//NETHER.setPrefix(Messager.color("&c"));
 		
 		// None Setup
-		NONE.setAllowFriendlyFire(false);
-		NONE.setPrefix(Messager.color("&7"));
+		//NONE.setAllowFriendlyFire(false);
+		//NONE.setPrefix(Messager.color("&7"));
 		
 	}
 

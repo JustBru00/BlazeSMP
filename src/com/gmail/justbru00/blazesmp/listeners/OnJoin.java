@@ -8,6 +8,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import com.gmail.justbru00.blazesmp.enums.Team;
 import com.gmail.justbru00.blazesmp.main.Main;
+import com.gmail.justbru00.blazesmp.utils.Debug;
 import com.gmail.justbru00.blazesmp.utils.Messager;
 import com.gmail.justbru00.blazesmp.utils.TeamManager;
 
@@ -24,17 +25,20 @@ public class OnJoin implements Listener {
 		Player player = e.getPlayer();
 		
 		if (TeamManager.getTeam(player) == null) { // Player Joined for the first time.
-			TeamManager.findAndJoinTeam(player);			
+			TeamManager.findAndJoinTeam(player);	
+			Debug.send("Attempted to join a team.");
 			return;
 		} 		
 		
-		if (TeamManager.getTeam(player) == Team.ICE) {			
+		if (TeamManager.getTeam(player) == Team.ICE) {	
+			Debug.send("Ice player joined");
 			for(Player online : Bukkit.getOnlinePlayers()) {
 				if (Main.board.getPlayerTeam(player).getName() == Main.ICE.getName()) {
 					iceMsg.send(online);
 				}
 			}
 		} else if (TeamManager.getTeam(player) == Team.NETHER) {
+			Debug.send("Nether player joined.");
 			for(Player online : Bukkit.getOnlinePlayers()) {
 				if (Main.board.getPlayerTeam(player).getName() == Main.NETHER.getName()) {
 					netherMsg.send(online);

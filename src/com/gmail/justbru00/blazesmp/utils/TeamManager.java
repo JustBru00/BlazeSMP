@@ -73,7 +73,7 @@ public class TeamManager {
 		// TODO Add joining per active
 		
 		if (netherTotal > iceTotal) {
-			TeamManager.setTeam(player, Team.ICE);
+			TeamManager.setTeam(player, Team.ICE); // TODO ADD A PLAYER PER NEW JOIN
 			return;
 		} else if (iceTotal > netherTotal) {
 			TeamManager.setTeam(player, Team.NETHER);
