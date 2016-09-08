@@ -1,10 +1,12 @@
 teams:
   nether:
     active: 0
+    total: 0
     name: '&cNETHER'
     color: '&c'
   ice: 
     active: 0
+    total: 0
     name: '&bICE'
     color: '&b'
   none:

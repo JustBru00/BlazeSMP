@@ -1,15 +1,19 @@
 package com.gmail.justbru00.blazesmp.utils;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import com.gmail.justbru00.blazesmp.enums.Team;
 import com.gmail.justbru00.blazesmp.main.Main;
 
-public class TeamHandler {
+public class TeamManager {
 
-	public static Team getTeam(Player player) {
+	public static Team getTeam(Player player) {		
 		String team = Main.getInstance().getConfig().getString("players.data." + player.getUniqueId() + ".team");
+		
+		if (team == null) {
+			return null;
+		}
+		
 		if (team.equalsIgnoreCase("ICE")) {
 			return Team.ICE;
 		} else if (team.equalsIgnoreCase("NETHER")) {
@@ -19,7 +23,8 @@ public class TeamHandler {
 		}
 	}
 	
-	public static void setTeam(Player player, Team team) {
+	@SuppressWarnings("deprecation")
+	public static void setTeam(Player player, Team team) { 
 		if (getTeam(player) == team) {
 			Debug.send("TeamHandler.setTeam() had an error: Player is already on that team.");
 			return;
@@ -29,17 +34,17 @@ public class TeamHandler {
 			Main.getInstance().getConfig().set("players.data." + player.getUniqueId() + ".team", "ICE");
 			Main.getInstance().saveConfig();			
 			
-			Bukkit.dispatchCommand(Main.clogger, "scoreboard teams join ICE " + player.getName());
+			Main.ICE.addPlayer(player);
 		} else if (team == Team.NETHER) {
 			Main.getInstance().getConfig().set("players.data." + player.getUniqueId() + ".team", "NETHER");
 			Main.getInstance().saveConfig();
 
-			Bukkit.dispatchCommand(Main.clogger, "scoreboard teams join NETHER " + player.getName());
+			Main.NETHER.addPlayer(player);
 		} else if (team == Team.NONE) {
 			Main.getInstance().getConfig().set("players.data." + player.getUniqueId() + ".team", "NONE");
 			Main.getInstance().saveConfig();
 
-			Bukkit.dispatchCommand(Main.clogger, "scoreboard teams join NONE " + player.getName());
+			Main.NONE.addPlayer(player);
 		}	
 	}
 	
@@ -59,5 +64,24 @@ public class TeamHandler {
 		return null;
 	}
 	
+	public static void findAndJoinTeam(Player player) {
+		int netherTotal = Main.getInstance().getConfig().getInt("teams.nether.total");
+		int iceTotal = Main.getInstance().getConfig().getInt("teams.ice.total");
+		//int netherActive = Main.getInstance().getConfig().getInt("teams.nether.active");
+		//int iceActive = Main.getInstance().getConfig().getInt("teams.ice.active");
+		
+		// TODO Add joining per active
+		
+		if (netherTotal > iceTotal) {
+			TeamManager.setTeam(player, Team.ICE);
+			return;
+		} else if (iceTotal > netherTotal) {
+			TeamManager.setTeam(player, Team.NETHER);
+			return;
+		} else if (iceTotal == netherTotal) {
+			TeamManager.setTeam(player, Team.NETHER);
+			return;
+		}
+	}
 }
 

@@ -11,7 +11,8 @@ import com.gmail.justbru00.blazesmp.main.Main;
 import com.gmail.justbru00.blazesmp.utils.Debug;
 import com.gmail.justbru00.blazesmp.utils.Messager;
 import com.gmail.justbru00.blazesmp.utils.PluginLogger;
-import com.gmail.justbru00.blazesmp.utils.TeamHandler;
+import com.gmail.justbru00.blazesmp.utils.PremadeInventory;
+import com.gmail.justbru00.blazesmp.utils.TeamManager;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -25,7 +26,14 @@ public class BlazeSMPAdmin implements CommandExecutor {
 					if (args[0].equalsIgnoreCase("gui")) {
 						Debug.send("Ready to open the GUI.");
 						
-						// TODO Open Admin GUI
+						if (!(sender instanceof Player)) {
+							Messager.msgSender("&cSorry only players can open gui.", sender);
+							return true;
+						}
+						
+						Player player = (Player) sender;
+						
+						player.openInventory(PremadeInventory.basMain(player));
 						
 						return true;
 					} else if (args[0].equalsIgnoreCase("setteam")) { // /blazesmpadmin setteam [player] [team] <reason>
@@ -58,10 +66,10 @@ public class BlazeSMPAdmin implements CommandExecutor {
 								return true;								
 							}							
 							
-							String oldTeam = TeamHandler.getColoredTeamName(TeamHandler.getTeam(commandTarget)); // Remember Old team for message and logging
-							TeamHandler.setTeam(commandTarget, setTeam); // Set the team
-							Messager.msgSender("&aSwitched player " + commandTarget.getName() + " from " + oldTeam + " to " + TeamHandler.getColoredTeamName(TeamHandler.getTeam(commandTarget)) + ".", sender); // Tell sender they change the persons team successfully.
-							PluginLogger.log(ChatColor.stripColor(sender.getName() + " switched player " + commandTarget.getName() + " from " + oldTeam + " to " + TeamHandler.getColoredTeamName(TeamHandler.getTeam(commandTarget)) + "."));
+							String oldTeam = TeamManager.getColoredTeamName(TeamManager.getTeam(commandTarget)); // Remember Old team for message and logging
+							TeamManager.setTeam(commandTarget, setTeam); // Set the team
+							Messager.msgSender("&aSwitched player " + commandTarget.getName() + " from " + oldTeam + " to " + TeamManager.getColoredTeamName(TeamManager.getTeam(commandTarget)) + ".", sender); // Tell sender they change the persons team successfully.
+							PluginLogger.log(ChatColor.stripColor(sender.getName() + " switched player " + commandTarget.getName() + " from " + oldTeam + " to " + TeamManager.getColoredTeamName(TeamManager.getTeam(commandTarget)) + "."));
 							return true;
 						} else {
 							Messager.msgSender("&cPlease follow usage for /blazesmpadmin setteam [player] [team] <reason>.", sender);
