@@ -29,8 +29,7 @@ import com.gmail.justbru00.blazesmp.main.Main;
 
 public class Debug {
 	public static void send(String msg) {
-		if (Main.debug) {
-		Messager.msgConsole(Main.PREFIX + "&8[&cDebug&8] &c" + msg);	
+		if (Main.debug) {		
 		Bukkit.broadcastMessage(Messager.color(Main.PREFIX + "&8[&cDebug&8] &c" + msg));
 		}
 	}

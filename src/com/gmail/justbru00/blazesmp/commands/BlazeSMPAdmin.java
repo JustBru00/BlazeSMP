@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import com.gmail.justbru00.blazesmp.enums.Team;
@@ -32,6 +33,14 @@ public class BlazeSMPAdmin implements CommandExecutor {
 						}
 						
 						Player player = (Player) sender;
+						
+						FileConfiguration config = Main.getInstance().getConfig();
+						if (!config.isSet("players.data." + player.getUniqueId().toString() +  ".admin.notifications.nocheat")) {
+							config.set("players.data." + player.getUniqueId().toString() +  ".admin.notifications.nocheat", true);
+							config.set("players.data." + player.getUniqueId().toString() +  ".admin.notifications.ores", false);
+							config.set("players.data." + player.getUniqueId().toString() +  ".admin.notifications.staffmode", false);
+							Main.getInstance().saveConfig();
+						}
 						
 						player.openInventory(PremadeInventory.basMain(player));
 						

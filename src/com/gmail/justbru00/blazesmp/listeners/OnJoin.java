@@ -16,13 +16,16 @@ import io.puharesource.mc.titlemanager.api.ActionbarTitleObject;
 
 public class OnJoin implements Listener {
 
-	ActionbarTitleObject iceMsg = new ActionbarTitleObject(Messager.color("&aA player on your team just joined."));
+	ActionbarTitleObject iceMsg = new ActionbarTitleObject(Messager.color("&bA player on your team just joined."));
 	ActionbarTitleObject netherMsg = new ActionbarTitleObject(Messager.color("&cA player on your team just joined."));
 	
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
-		Player player = e.getPlayer();
+		Player player = e.getPlayer();		
+		
+		Main.getInstance().getConfig().set("players.data." + player.getUniqueId().toString() + ".lastname", player.getName());
+		Main.getInstance().saveConfig();
 		
 		if (TeamManager.getTeam(player) == null) { // Player Joined for the first time.
 			TeamManager.findAndJoinTeam(player);	
@@ -32,15 +35,21 @@ public class OnJoin implements Listener {
 		
 		if (TeamManager.getTeam(player) == Team.ICE) {	
 			Debug.send("Ice player joined");
+			
+			Main.ICE.addPlayer(player);
+			
 			for(Player online : Bukkit.getOnlinePlayers()) {
-				if (Main.board.getPlayerTeam(player).getName() == Main.ICE.getName()) {
+				if (TeamManager.getTeam(online) == Team.ICE) {
 					iceMsg.send(online);
 				}
 			}
-		} else if (TeamManager.getTeam(player) == Team.NETHER) {
+		} else if (TeamManager.getTeam(player) == Team.NETHER) { 			
 			Debug.send("Nether player joined.");
+			
+			Main.NETHER.addPlayer(player);
+			
 			for(Player online : Bukkit.getOnlinePlayers()) {
-				if (Main.board.getPlayerTeam(player).getName() == Main.NETHER.getName()) {
+				if (TeamManager.getTeam(online) == Team.NETHER) {
 					netherMsg.send(online);
 				}
 			}

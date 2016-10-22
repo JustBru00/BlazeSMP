@@ -23,6 +23,7 @@ SOFTWARE.
 **/ 
 package com.gmail.justbru00.blazesmp.utils;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -61,4 +62,8 @@ public class Messager {
 		//msg = msg.replace("{char}", Integer.toString(CharLimit.getCharLimit()));
 		sender.sendMessage(Main.PREFIX + Messager.color(msg));
 	}	
+	
+	public static void sendBC(String msg) {
+		Bukkit.broadcastMessage(Messager.color(Main.PREFIX + msg));
+	}
 }
