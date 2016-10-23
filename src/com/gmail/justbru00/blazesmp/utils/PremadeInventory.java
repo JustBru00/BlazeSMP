@@ -35,7 +35,7 @@ public class PremadeInventory {
 		// Start Adding Stuff
 		i.setItem(4, senderSkull);
 		i.setItem(10, ItemMaker.createItemStack("&eTeam Change Requests", "PAPER", "&7Shows all pending team change requests.", "&7Deny any that have no reason."));
-		i.setItem(13, ItemMaker.createItemStack("&bStaff Mode", "GOLDEN_APPLE", "&7Clicking this toggle staff mode.", ""));
+		i.setItem(13, ItemMaker.createItemStack("&bStaff Mode", "GOLDEN_APPLE", "&7Clicking this will toggle staff mode.", ""));
 		
 		if (!Main.getInstance().getConfig().getBoolean("players.data." + sender.getUniqueId().toString() + ".admin.notifications.staffmode"))	i.setItem(14, disabled);
 		if (Main.getInstance().getConfig().getBoolean("players.data." + sender.getUniqueId().toString() + ".admin.notifications.staffmode"))	i.setItem(14, enabled);

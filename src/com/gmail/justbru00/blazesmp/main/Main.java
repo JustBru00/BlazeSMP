@@ -7,6 +7,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Scoreboard;
@@ -68,13 +69,18 @@ public class Main extends JavaPlugin implements CommandExecutor {
 		
 		Messager.msgConsole("&aEnable Complete!!!");
 	}
-	
+	/**
+	 * 
+	 * @return The current instance of {@link Main}
+	 */
 	public static Main getInstance(){
 		return plugin;
 	}	
 	
 	
-	
+	/**
+	 * Prepares scoreboard teams.
+	 */
 	public static void readyScoreboardTeams() { 
 		
 		sm = Bukkit.getScoreboardManager();
@@ -112,10 +118,16 @@ public class Main extends JavaPlugin implements CommandExecutor {
 		
 		// None Setup
 		NONE.setAllowFriendlyFire(false);
-		NONE.setPrefix(Messager.color("&7"));
-		
-		
-		
+		NONE.setPrefix(Messager.color("&7"));		
+	}
+	
+	/**
+	 * Gets you the beginning of the {@link Player}'s data path.
+	 * @param player The player to get the data path for.
+	 * @return A string with: "players.data.UUID_HERE."
+	 */
+	public static String getDataPath(Player player) {
+		return "players.data." + player.getUniqueId() + ".";
 	}
 
 }

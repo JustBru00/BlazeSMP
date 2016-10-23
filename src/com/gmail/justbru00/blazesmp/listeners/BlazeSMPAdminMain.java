@@ -36,33 +36,58 @@ public class BlazeSMPAdminMain implements Listener {
 			}
 			
 			if (currentItem.getType() == Material.GOLDEN_APPLE) { // Staff Mode
-				Messager.msgPlayer("&cSorry that feature is not ready yet.", player);
-				return;
+				if (i.getItem(14).equals(PremadeInventory.enabled)) {
+					Main.getInstance().getConfig().set("players.data." + player.getUniqueId().toString() + ".admin.notifications.staffmode", false);
+					Main.getInstance().saveConfig();
+					i.setItem(14, PremadeInventory.disabled);						
+					// TODO Enable/disable ore notifications		
+					Messager.msgPlayer("&cSorry but that feature is not ready yet.", player);
+					return;
+				} else {
+					Main.getInstance().getConfig().set("players.data." + player.getUniqueId().toString() + ".admin.notifications.staffmode", true);
+					Main.getInstance().saveConfig();
+					i.setItem(14, PremadeInventory.enabled);		
+					Messager.msgPlayer("&cSorry but that feature is not ready yet.", player);
+					return;
+				}	
 			} else if (currentItem.getType() == Material.PAPER) { // Team requests
 				Messager.msgPlayer("&cSorry that feature is not ready yet.", player);
 				return;
 			} else if (currentItem.getType() == Material.DIAMOND_AXE) { // War options
-				Messager.msgPlayer("&cSorry that feature is not ready yet.", player);
+				Messager.msgPlayer("&cYeah.... Still working on that.", player);
 				return;
 			} else if (currentItem.getType() == Material.BARRIER) { // Notifcations
-				if (currentItem.getItemMeta().getDisplayName().equals(Messager.color("&bNo Cheat Notifications"))) { // NoCheat Notifcations
-					Debug.send("NoCheat Item");
+				if (currentItem.getItemMeta().getDisplayName().equals(Messager.color("&bNo Cheat Notifications"))) { // NoCheat Notifcations				
 					if (i.getItem(17).equals(PremadeInventory.enabled)) {
 						Main.getInstance().getConfig().set("players.data." + player.getUniqueId().toString() + ".admin.notifications.nocheat", false);
 						Main.getInstance().saveConfig();
 						i.setItem(17, PremadeInventory.disabled);						
 						// TODO Enable/disable notifications
-						Debug.send("No cheat off");
+						Messager.msgPlayer("&cSorry but that feature is not ready yet.", player);
 						return;
 					} else {
 						Main.getInstance().getConfig().set("players.data." + player.getUniqueId().toString() + ".admin.notifications.nocheat", true);
 						Main.getInstance().saveConfig();
-						i.setItem(17, PremadeInventory.enabled);
-						Debug.send("NoCheat is now on");
+						i.setItem(17, PremadeInventory.enabled);	
+						Messager.msgPlayer("&cSorry but that feature is not ready yet.", player);
 						return;
 					}
-				} else if (true /** Stuff here **/){
+				} else if (currentItem.getItemMeta().getDisplayName().equals(Messager.color("&bOres found notifications"))) {
 					
+					if (i.getItem(26).equals(PremadeInventory.enabled)) {
+						Main.getInstance().getConfig().set("players.data." + player.getUniqueId().toString() + ".admin.notifications.ores", false);
+						Main.getInstance().saveConfig();
+						i.setItem(26, PremadeInventory.disabled);						
+						// TODO Enable/disable ore notifications		
+						Messager.msgPlayer("&cSorry but that feature is not ready yet.", player);
+						return;
+					} else {
+						Main.getInstance().getConfig().set("players.data." + player.getUniqueId().toString() + ".admin.notifications.ores", true);
+						Main.getInstance().saveConfig();
+						i.setItem(26, PremadeInventory.enabled);		
+						Messager.msgPlayer("&cSorry but that feature is not ready yet.", player);
+						return;
+					}					
 				}
 			}
 			
