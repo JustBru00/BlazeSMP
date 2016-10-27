@@ -89,7 +89,25 @@ public class BlazeSMPAdmin implements CommandExecutor {
 						return true;
 					}
 				} else {
-					Messager.msgSender("&cSo you want the GUI huh? Then type /blazesmpadmin gui. How hard is that? (No args)", sender);
+					Debug.send("Ready to open the GUI.");
+					
+					if (!(sender instanceof Player)) {
+						Messager.msgSender("&cSorry only players can open gui.", sender);
+						return true;
+					}
+					
+					Player player = (Player) sender;
+					
+					FileConfiguration config = Main.getInstance().getConfig();
+					if (!config.isSet("players.data." + player.getUniqueId().toString() +  ".admin.notifications.nocheat")) {
+						config.set("players.data." + player.getUniqueId().toString() +  ".admin.notifications.nocheat", true);
+						config.set("players.data." + player.getUniqueId().toString() +  ".admin.notifications.ores", false);
+						config.set("players.data." + player.getUniqueId().toString() +  ".admin.notifications.staffmode", false);
+						Main.getInstance().saveConfig();
+					}
+					
+					player.openInventory(PremadeInventory.basMain(player));
+					
 					return true;	
 				}					
 			} else {

@@ -1,12 +1,15 @@
 package com.gmail.justbru00.blazesmp.utils;
 
-import com.gmail.justbru00.blazesmp.enums.WarState;
+import org.bukkit.Bukkit;
+
+import com.gmail.justbru00.blazesmp.enums.War;
+import com.gmail.justbru00.blazesmp.listeners.PvpListener;
 
 public class WarManager {
 	/**
-	 * Default is {@link WarState.PEACE}
+	 * Default is {@link War.PEACE}
 	 */
-	public static WarState CURRENT_WAR_STATE = WarState.PEACE; 
+	public static War CURRENT_WAR_STATE = War.PEACE; 
 	/**
 	 * Default is 30 min
 	 */
@@ -23,31 +26,50 @@ public class WarManager {
 	 * Default is 600
 	 */
 	public static int CANCELATION_COOLDOWN = 600;
+	/**
+	 * Default is 10 min
+	 */
+	public static int AFTER_WAR_COOLDOWN = 600;
 	
 	/**
-	 * Run the proper code to set the {@link WarState}
-	 * @param ws The {@link WarState} you would like to set to.
+	 * Run the proper code to set the {@link War}
+	 * @param ws The {@link War} you would like to set to.
 	 */
-	public static void gotoWarState(WarState ws) {
+	public static void gotoWarState(War ws) {
 		
-		if (ws == WarState.PEACE) {
+		if (ws == War.PEACE) {
 			Debug.send("Trying to start WarState.PEACE");
 			setWarState(ws);
 			//TODO Make this work
 			
-		} else if (ws == WarState.WAR_START) {
+		} else if (ws == War.START) {
 			
-		} else if (ws == WarState.WAR_DURING) {
+		} else if (ws == War.DURING) {
 			
-		} else if (ws == WarState.WAR_END) {
+		} else if (ws == War.END) {
+			Debug.send("Attemting to GOTO War.END");
 			
-		} else if (ws == WarState.WAR_FORCESTOP) {
+			setWarState(ws);
 			
+			Cores.setEnabled(false);
+			Effects.setEnabled(true);
+			ChestLocks.setAllLocksEnabled(true);
+			// Enabled dungons.
+			
+			gotoWarState(War.COOLDOWN);
+			
+		} else if (ws == War.FORCESTOP) {
+			
+		} else if (ws == War.FORCESTART) {
+			
+		} else if (ws == War.COOLDOWN) {
+			PvpListener.setPvpEnabled(false);
+			TimerHandler.setCurrentTimeLeft(AFTER_WAR_COOLDOWN);
 		}
 		
 	}
 	
-	private static void setWarState(WarState ws) {
+	private static void setWarState(War ws) {
 		CURRENT_WAR_STATE = ws;
 	}
 	
