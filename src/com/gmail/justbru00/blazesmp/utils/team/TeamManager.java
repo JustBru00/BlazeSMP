@@ -1,9 +1,11 @@
-package com.gmail.justbru00.blazesmp.utils;
+package com.gmail.justbru00.blazesmp.utils.team;
 
 import org.bukkit.entity.Player;
 
 import com.gmail.justbru00.blazesmp.enums.Team;
 import com.gmail.justbru00.blazesmp.main.Main;
+import com.gmail.justbru00.blazesmp.utils.Debug;
+import com.gmail.justbru00.blazesmp.utils.Messager;
 
 public class TeamManager {
 

@@ -10,7 +10,7 @@ import com.gmail.justbru00.blazesmp.enums.Team;
 import com.gmail.justbru00.blazesmp.main.Main;
 import com.gmail.justbru00.blazesmp.utils.Debug;
 import com.gmail.justbru00.blazesmp.utils.Messager;
-import com.gmail.justbru00.blazesmp.utils.TeamManager;
+import com.gmail.justbru00.blazesmp.utils.team.TeamManager;
 
 import io.puharesource.mc.titlemanager.api.ActionbarTitleObject;
 

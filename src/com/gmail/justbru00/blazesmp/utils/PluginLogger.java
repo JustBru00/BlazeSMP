@@ -3,6 +3,7 @@ package com.gmail.justbru00.blazesmp.utils;
 import java.util.ArrayList;
 
 import com.gmail.justbru00.blazesmp.main.Main;
+import com.gmail.justbru00.blazesmp.utils.timestuffs.TimeGetter;
 
 public class PluginLogger {
 

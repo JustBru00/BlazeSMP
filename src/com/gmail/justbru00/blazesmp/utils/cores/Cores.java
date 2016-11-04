@@ -1,4 +1,4 @@
-package com.gmail.justbru00.blazesmp.utils;
+package com.gmail.justbru00.blazesmp.utils.cores;
 /**
  * Handles Team Core Stuff
  * @author Justin Brubaker

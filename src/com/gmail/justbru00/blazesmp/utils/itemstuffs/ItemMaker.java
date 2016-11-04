@@ -1,4 +1,4 @@
-package com.gmail.justbru00.blazesmp.utils;
+package com.gmail.justbru00.blazesmp.utils.itemstuffs;
 
 import java.util.ArrayList;
 
@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import com.gmail.justbru00.blazesmp.main.Main;
+import com.gmail.justbru00.blazesmp.utils.Messager;
 
 public class ItemMaker {
 

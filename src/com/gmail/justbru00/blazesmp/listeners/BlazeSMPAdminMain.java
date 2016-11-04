@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import com.gmail.justbru00.blazesmp.main.Main;
 import com.gmail.justbru00.blazesmp.utils.Debug;
 import com.gmail.justbru00.blazesmp.utils.Messager;
-import com.gmail.justbru00.blazesmp.utils.PremadeInventory;
+import com.gmail.justbru00.blazesmp.utils.itemstuffs.PremadeInventory;
 
 public class BlazeSMPAdminMain implements Listener {
 

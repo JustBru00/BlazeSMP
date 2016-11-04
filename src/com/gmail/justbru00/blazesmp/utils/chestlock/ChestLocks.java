@@ -1,4 +1,4 @@
-package com.gmail.justbru00.blazesmp.utils;
+package com.gmail.justbru00.blazesmp.utils.chestlock;
 
 public class ChestLocks {
 

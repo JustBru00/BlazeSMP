@@ -1,5 +1,5 @@
 // THE (“EpicTextWarning”) SOURCE IS PROVIDED AS IS AT NO MONETARY COST FOR PERSONAL USE ONLY. ANY COMMERCIAL DISTRIBUTION/USE OF THE (“EpicTextWarning”) SOURCE IS STRICTLY PROHIBITED.
-package com.gmail.justbru00.blazesmp.utils;
+package com.gmail.justbru00.blazesmp.utils.timestuffs;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

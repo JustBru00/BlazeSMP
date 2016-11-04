@@ -1,4 +1,4 @@
-package com.gmail.justbru00.blazesmp.utils;
+package com.gmail.justbru00.blazesmp.utils.itemstuffs;
 
 import java.util.ArrayList;
 import org.bukkit.Bukkit;
@@ -10,6 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import com.gmail.justbru00.blazesmp.main.Main;
+import com.gmail.justbru00.blazesmp.utils.Messager;
 
 public class PremadeInventory {
 	

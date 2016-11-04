@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import com.gmail.justbru00.blazesmp.enums.Team;
 import com.gmail.justbru00.blazesmp.main.Main;
 import com.gmail.justbru00.blazesmp.utils.Debug;
-import com.gmail.justbru00.blazesmp.utils.TeamManager;
+import com.gmail.justbru00.blazesmp.utils.team.TeamManager;
 
 public class OnLeave implements Listener {
 
