@@ -1,5 +1,7 @@
 package com.gmail.justbru00.blazesmp.utils.team;
 
+import java.util.ArrayList;
+
 import org.bukkit.entity.Player;
 
 import com.gmail.justbru00.blazesmp.enums.Team;
@@ -7,10 +9,67 @@ import com.gmail.justbru00.blazesmp.main.Main;
 import com.gmail.justbru00.blazesmp.utils.Debug;
 import com.gmail.justbru00.blazesmp.utils.Messager;
 
-public class TeamManager {
+public class TeamManager {	
+	
+	private static ArrayList<TeamChangeRequest> teamChangeRequests = new ArrayList<TeamChangeRequest>();
+	private static int currentRequestsID = Main.getInstance().teamRequestsFile.getInt("current_id");
+	
+	
+	public static void refreshRequestsFromConfig() {
+		if (Main.getInstance().teamRequestsFile.getList("requests") == null) {
+			TeamChangeRequest example = new TeamChangeRequest("069a79f4-44e9-4726-a5be-fca90e38aaf5", Team.NONE, "Example to test the array.", (currentRequestsID + 1));
+			example.setDenied(true);		
+			example.writeToConfig();
+		
+			Main.getInstance().teamRequestsFile.set("current_id", (currentRequestsID + 1));
+			Main.getInstance().teamRequestsFile.save();				
+		}
+		
+		teamChangeRequests = new ArrayList<TeamChangeRequest>();
+		
+		int i = 1;
+		
+		while (true) {
+			if (Main.getInstance().teamRequestsFile.get("requests." + i) == null) {
+				break;
+			}
+			
+			TeamChangeRequest trc = new TeamChangeRequest(i);
+			teamChangeRequests.add(trc);	
+			i++;
+		}
+				
+		Messager.msgConsole("The reason is: " + teamChangeRequests.get(0).getReasonForChange());
+	}
+	
+	public static int getNextRequestID() {
+		Main.getInstance().teamRequestsFile.set("current_id", (currentRequestsID + 1));
+		Main.getInstance().teamRequestsFile.save();		
+		
+		currentRequestsID = currentRequestsID + 1;
+		return currentRequestsID;
+	}
+	
+	
+	public static Team getTeamFromString(String team) {
+		
+		switch (team) {
+			case "NONE": {
+				return Team.NONE;
+			}
+			case "NETHER": {
+				return Team.NETHER;
+			}
+			case "ICE": {
+				return Team.ICE;
+			}
+		}
+		return null;
+		
+	}
 
 	public static Team getTeam(Player player) {		
-		String team = Main.getInstance().getConfig().getString("players.data." + player.getUniqueId() + ".team");
+		String team = Main.getInstance().getConfig().getString("players.data." + player.getUniqueId() + ".team");	
 		
 		if (team == null) {
 			return null;

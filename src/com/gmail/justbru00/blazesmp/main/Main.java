@@ -15,10 +15,13 @@ import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.scoreboard.Team;
 
 import com.gmail.justbru00.blazesmp.commands.BlazeSMPAdmin;
+import com.gmail.justbru00.blazesmp.commands.RequestTeam;
 import com.gmail.justbru00.blazesmp.listeners.BlazeSMPAdminMain;
 import com.gmail.justbru00.blazesmp.listeners.OnJoin;
 import com.gmail.justbru00.blazesmp.listeners.OnLeave;
 import com.gmail.justbru00.blazesmp.utils.Messager;
+import com.gmail.justbru00.blazesmp.utils.PluginFile;
+import com.gmail.justbru00.blazesmp.utils.team.TeamManager;
 
 public class Main extends JavaPlugin implements CommandExecutor {
 	
@@ -32,6 +35,7 @@ public class Main extends JavaPlugin implements CommandExecutor {
 	public static Team ICE;
 	public static Team NETHER;
 	public static Team NONE;
+	public PluginFile teamRequestsFile = null;
 	
 
 	@Override
@@ -43,7 +47,7 @@ public class Main extends JavaPlugin implements CommandExecutor {
 	@Override
 	public void onDisable() {
 		
-		
+		Messager.msgConsole("&6The plugin has been disabled.");
 		plugin = null; // Close Memory Leak
 	}
 
@@ -52,13 +56,18 @@ public class Main extends JavaPlugin implements CommandExecutor {
 		plugin = this;
 		Messager.msgConsole("&aStarting Plugin...");
 		
+		// Configs
 		saveDefaultConfig();
+		teamRequestsFile = new PluginFile(this, "teamrequests.yml", "teamrequests.yml");
+		
 		readyScoreboardTeams();
+		TeamManager.refreshRequestsFromConfig();
 		
 		// TODO Check for TitleMananger and ResoucePackApi
 		
 		// Register Command Executors 
 		getCommand("blazesmpadmin").setExecutor(new BlazeSMPAdmin());
+		getCommand("requestteam").setExecutor(new RequestTeam());
 		
 		PluginManager pm = Bukkit.getServer().getPluginManager();
 		
@@ -67,7 +76,7 @@ public class Main extends JavaPlugin implements CommandExecutor {
 		pm.registerEvents(new OnLeave(), plugin);
 		pm.registerEvents(new BlazeSMPAdminMain(), plugin);
 		
-		Messager.msgConsole("&aEnable Complete!!!");
+		Messager.msgConsole("&aEnable Complete!!!");	
 	}
 	/**
 	 * 

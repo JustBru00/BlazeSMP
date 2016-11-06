@@ -22,5 +22,5 @@ commands:
     usage: /lock <optional reason>
   requestteam:
     description: Allows you to request being changed to a team. Make sure to provide a reason.
-    usage: (Required teamName) <optional reason> 
+    usage: /requestteam (Required teamName) <optional reason> 
     aliases: [rt] 

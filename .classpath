@@ -13,5 +13,5 @@
 			<attribute name="javadoc_location" value="https://jd.puharesource.io/titlemanager/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>
