@@ -1,7 +1,17 @@
 package com.gmail.justbru00.blazesmp.utils.team;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
 import com.gmail.justbru00.blazesmp.enums.Team;
 import com.gmail.justbru00.blazesmp.main.Main;
+import com.gmail.justbru00.blazesmp.utils.Messager;
 import com.gmail.justbru00.blazesmp.utils.PluginFile;
 import com.gmail.justbru00.blazesmp.utils.timestuffs.TimeGetter;
 
@@ -54,6 +64,30 @@ public class TeamChangeRequest {
 		accepterUUID = file.getString(getPathFor("accepterUUID"));
 		acceptedTime = file.getLong(getPathFor("acceptedTime"));
 		
+	}
+	
+	public ItemStack getItem() {
+		
+		ItemStack i = new ItemStack(Material.PAPER);
+		ItemMeta im = i.getItemMeta();
+		im.setDisplayName(Messager.color("&eTeam Change Request #" + id));
+		ArrayList<String> lore = new ArrayList<String>();
+		
+		lore.add(Messager.color("&eRequester: &7" + Bukkit.getOfflinePlayer(UUID.fromString(requesterUUID)).getName()));
+		
+		if (teamToChangeTo == Team.ICE) {
+			lore.add(Messager.color("&eChange to: &bICE"));
+		} else if (teamToChangeTo == Team.NETHER) {
+			lore.add(Messager.color("&eChange to: &cNETHER"));
+		}
+		
+		lore.add(Messager.color("&eRequested at: &7" + timeRequestedFormated));
+		lore.add(Messager.color("&eReason: &7" + reasonForChange));
+		
+		im.setLore(lore);
+		i.setItemMeta(im);
+		
+		return i;
 	}
 	
 	/**

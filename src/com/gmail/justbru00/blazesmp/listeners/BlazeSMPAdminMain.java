@@ -51,7 +51,7 @@ public class BlazeSMPAdminMain implements Listener {
 					return;
 				}	
 			} else if (currentItem.getType() == Material.PAPER) { // Team requests
-				Messager.msgPlayer("&cSorry that feature is not ready yet.", player);
+				player.openInventory(PremadeInventory.teamRequests());
 				return;
 			} else if (currentItem.getType() == Material.DIAMOND_AXE) { // War options
 				Messager.msgPlayer("&cYeah.... Still working on that.", player);

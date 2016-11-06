@@ -10,13 +10,52 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import com.gmail.justbru00.blazesmp.main.Main;
+import com.gmail.justbru00.blazesmp.utils.Debug;
 import com.gmail.justbru00.blazesmp.utils.Messager;
+import com.gmail.justbru00.blazesmp.utils.team.TeamChangeRequest;
+import com.gmail.justbru00.blazesmp.utils.team.TeamManager;
 
 public class PremadeInventory {
 	
 	public static ItemStack enabled = new ItemStack(Material.INK_SACK, 1, (short) 10); 
 	public static ItemStack disabled = new ItemStack(Material.INK_SACK, 1, (short) 8); 
+	public static final String TEAM_REQUESTS_NAME = Messager.color("&eTeam Change Requests");
+	public static final String TEAM_REQUESTS_CONFIRM_PREFIX = Messager.color("&eTeam Change Request #");
 
+	public static Inventory confirmTeamRequest(ItemStack clickedItem) {
+		
+		int ID = -1;
+		
+		String temp = clickedItem.getItemMeta().getDisplayName();
+		ID = Integer.parseInt(temp.substring(temp.length() - 1));
+		
+				
+		Inventory i = Bukkit.createInventory(null, 54, TEAM_REQUESTS_CONFIRM_PREFIX + ID);
+		
+		return i;
+	}
+	
+	public static Inventory teamRequests() {
+		Inventory i = Bukkit.createInventory(null, 54, TEAM_REQUESTS_NAME);
+		
+		int numOfRequests = 1;
+		
+		for (TeamChangeRequest tcr : TeamManager.getTeamChangeRequests()) {
+			if (numOfRequests > 54) {
+				Debug.send("Too many to fit in one inventory");
+				break;
+			}
+			
+			if (!tcr.isDenied() && !tcr.isAccepted()) {
+			i.addItem(tcr.getItem());
+			}
+			
+			numOfRequests++;
+		}
+		
+		return i;
+	}
+	
 	public static Inventory basMain(Player sender) {
 		readyItems();
 		

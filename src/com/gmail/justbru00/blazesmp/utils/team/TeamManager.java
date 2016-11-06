@@ -16,14 +16,6 @@ public class TeamManager {
 	
 	
 	public static void refreshRequestsFromConfig() {
-		if (Main.getInstance().teamRequestsFile.getList("requests") == null) {
-			TeamChangeRequest example = new TeamChangeRequest("069a79f4-44e9-4726-a5be-fca90e38aaf5", Team.NONE, "Example to test the array.", (currentRequestsID + 1));
-			example.setDenied(true);		
-			example.writeToConfig();
-		
-			Main.getInstance().teamRequestsFile.set("current_id", (currentRequestsID + 1));
-			Main.getInstance().teamRequestsFile.save();				
-		}
 		
 		teamChangeRequests = new ArrayList<TeamChangeRequest>();
 		
@@ -37,9 +29,8 @@ public class TeamManager {
 			TeamChangeRequest trc = new TeamChangeRequest(i);
 			teamChangeRequests.add(trc);	
 			i++;
-		}
-				
-		Messager.msgConsole("The reason is: " + teamChangeRequests.get(0).getReasonForChange());
+		}				
+		Debug.send("Done Refreshing the requests.");
 	}
 	
 	public static int getNextRequestID() {
@@ -153,6 +144,22 @@ public class TeamManager {
 			TeamManager.setTeam(player, Team.NETHER);		
 			return;
 		}
+	}
+
+	/**
+	 * Gets the teamChangeRequests. Runs {@link TeamManager#refreshRequestsFromConfig()} automagiclly
+	 * @return the teamChangeRequests The array with TeamChangeRequests
+	 */
+	public static ArrayList<TeamChangeRequest> getTeamChangeRequests() {
+		TeamManager.refreshRequestsFromConfig();
+		return teamChangeRequests;
+	}
+
+	/**
+	 * @param teamChangeRequests the teamChangeRequests to set
+	 */
+	public static void setTeamChangeRequests(ArrayList<TeamChangeRequest> teamChangeRequests) {
+		TeamManager.teamChangeRequests = teamChangeRequests;
 	}
 }
 

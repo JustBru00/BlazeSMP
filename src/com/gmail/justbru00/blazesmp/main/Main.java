@@ -19,6 +19,7 @@ import com.gmail.justbru00.blazesmp.commands.RequestTeam;
 import com.gmail.justbru00.blazesmp.listeners.BlazeSMPAdminMain;
 import com.gmail.justbru00.blazesmp.listeners.OnJoin;
 import com.gmail.justbru00.blazesmp.listeners.OnLeave;
+import com.gmail.justbru00.blazesmp.listeners.TeamChangeRequestGUI;
 import com.gmail.justbru00.blazesmp.utils.Messager;
 import com.gmail.justbru00.blazesmp.utils.PluginFile;
 import com.gmail.justbru00.blazesmp.utils.team.TeamManager;
@@ -69,12 +70,14 @@ public class Main extends JavaPlugin implements CommandExecutor {
 		getCommand("blazesmpadmin").setExecutor(new BlazeSMPAdmin());
 		getCommand("requestteam").setExecutor(new RequestTeam());
 		
+		
 		PluginManager pm = Bukkit.getServer().getPluginManager();
 		
 		// Listeners
 		pm.registerEvents(new OnJoin(), plugin);
 		pm.registerEvents(new OnLeave(), plugin);
 		pm.registerEvents(new BlazeSMPAdminMain(), plugin);
+		pm.registerEvents(new TeamChangeRequestGUI(), plugin);
 		
 		Messager.msgConsole("&aEnable Complete!!!");	
 	}
