@@ -80,7 +80,15 @@ public class TeamManager {
 		if (getTeam(player) == team) {
 			Debug.send("TeamHandler.setTeam() had an error: Player is already on that team.");
 			return;
-		}
+		}	
+		
+		if (getTeam(player) == Team.ICE) {
+			Main.getInstance().getConfig().set("teams.ice.total", Main.getInstance().getConfig().getInt("teams.ice.total") - 1);
+			Main.getInstance().saveConfig();
+		} else if (getTeam(player) == Team.NETHER) {
+			Main.getInstance().getConfig().set("teams.nether.total", Main.getInstance().getConfig().getInt("teams.nether.total") - 1);
+			Main.getInstance().saveConfig();
+		} 
 		
 		if (team == Team.ICE) {
 			Main.getInstance().getConfig().set("players.data." + player.getUniqueId() + ".team", "ICE");

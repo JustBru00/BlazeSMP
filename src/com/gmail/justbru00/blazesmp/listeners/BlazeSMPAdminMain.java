@@ -1,5 +1,6 @@
 package com.gmail.justbru00.blazesmp.listeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,7 +18,7 @@ public class BlazeSMPAdminMain implements Listener {
 
 	@EventHandler
 	public void onClick(InventoryClickEvent e) {
-		Inventory i = e.getClickedInventory();	
+		Inventory i = e.getInventory();	
 		Player player = (Player) e.getWhoClicked();
 		
 		if (i == null) {
@@ -40,7 +41,7 @@ public class BlazeSMPAdminMain implements Listener {
 					Main.getInstance().getConfig().set("players.data." + player.getUniqueId().toString() + ".admin.notifications.staffmode", false);
 					Main.getInstance().saveConfig();
 					i.setItem(14, PremadeInventory.disabled);						
-					// TODO Enable/disable ore notifications		
+					// TODO Use AdminSave
 					Messager.msgPlayer("&cSorry but that feature is not ready yet.", player);
 					return;
 				} else {
