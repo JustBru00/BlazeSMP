@@ -1,7 +1,6 @@
 package com.gmail.justbru00.blazesmp.utils.team;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;

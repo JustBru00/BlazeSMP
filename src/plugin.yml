@@ -24,3 +24,7 @@ commands:
     description: Allows you to request being changed to a team. Make sure to provide a reason.
     usage: /requestteam (Required teamName) <optional reason> 
     aliases: [rt] 
+  event:
+    description: Changes settings that are useful for games and events.
+    usage: /event <args>
+    aliases: [e]

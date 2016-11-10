@@ -15,6 +15,7 @@ import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.scoreboard.Team;
 
 import com.gmail.justbru00.blazesmp.commands.BlazeSMPAdmin;
+import com.gmail.justbru00.blazesmp.commands.Event;
 import com.gmail.justbru00.blazesmp.commands.RequestTeam;
 import com.gmail.justbru00.blazesmp.listeners.BlazeSMPAdminMain;
 import com.gmail.justbru00.blazesmp.listeners.OnJoin;
@@ -29,7 +30,7 @@ public class Main extends JavaPlugin implements CommandExecutor {
 	public static ConsoleCommandSender clogger = Bukkit.getServer().getConsoleSender();
 	public static Logger log = Bukkit.getLogger();
 	public static boolean debug = true;
-	public static final String PREFIX = Messager.color("&8[&6Blaze&cSMP&8] &f");
+	public static String PREFIX = Messager.color("&8[&6Blaze&cSMP&8] &f");
 	public static Main plugin;
 	public static ScoreboardManager sm;
 	public static Scoreboard board;	
@@ -69,6 +70,7 @@ public class Main extends JavaPlugin implements CommandExecutor {
 		// Register Command Executors 
 		getCommand("blazesmpadmin").setExecutor(new BlazeSMPAdmin());
 		getCommand("requestteam").setExecutor(new RequestTeam());
+		getCommand("event").setExecutor(new Event());
 		
 		
 		PluginManager pm = Bukkit.getServer().getPluginManager();

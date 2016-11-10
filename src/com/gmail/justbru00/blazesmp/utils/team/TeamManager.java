@@ -15,6 +15,11 @@ public class TeamManager {
 	private static int currentRequestsID = Main.getInstance().teamRequestsFile.getInt("current_id");
 	
 	
+	public static void setFriendlyFireEnabled(boolean b) {
+		Main.ICE.setAllowFriendlyFire(b);
+		Main.NETHER.setAllowFriendlyFire(b);		
+	}
+	
 	public static void refreshRequestsFromConfig() {
 		
 		teamChangeRequests = new ArrayList<TeamChangeRequest>();

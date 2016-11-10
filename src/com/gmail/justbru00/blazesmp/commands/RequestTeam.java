@@ -17,6 +17,11 @@ public class RequestTeam implements CommandExecutor {
 		
 		if (command.getName().equalsIgnoreCase("requestteam")) {
 			
+			if (!Event.TEAM_REQUESTS_ENABLED) {
+				Messager.msgSender("&6Team requests are disabled. Contact an admin if you think this is in error.", sender);
+				return true;
+			}
+			
 			if (sender instanceof Player) {
 				Player player = (Player) sender;
 				
