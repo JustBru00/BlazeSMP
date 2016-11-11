@@ -7,6 +7,8 @@ import org.bukkit.command.CommandSender;
 import com.gmail.justbru00.blazesmp.main.Main;
 import com.gmail.justbru00.blazesmp.utils.Messager;
 import com.gmail.justbru00.blazesmp.utils.team.TeamManager;
+import com.gmail.justbru00.blazesmp.utils.timestuffs.TimerHandler;
+import com.gmail.justbru00.blazesmp.utils.timestuffs.TimerMode;
 
 public class Event implements CommandExecutor {
 	
@@ -47,14 +49,39 @@ public class Event implements CommandExecutor {
 							FRIENDLY_FIRE_ENABLED = false;
 							TeamManager.setFriendlyFireEnabled(FRIENDLY_FIRE_ENABLED);
 							Messager.msgSender("&6Friendly Fire is now &c&lDISABLED&6.", sender);
-							return true;
+							return true;							
 						} else {
 							Messager.msgSender("&6Friendly Fire is: " + FRIENDLY_FIRE_ENABLED, sender);
 							return true;
 						}
 					} else if (args[0].equalsIgnoreCase("prefix")) {
-						Main.PREFIX = Messager.color(args[1]);
+						Main.PREFIX = Messager.color(args[1] + " &f");
+						Messager.msgSender("&6Changed the prefix of the plugin to: " + Main.PREFIX, sender);
 						return true;
+					} else if (args[0].equalsIgnoreCase("timer")) {
+						if (args[1].equalsIgnoreCase("blazesmp")) {
+							Messager.msgSender("&6Set timer mode to BlazeSMP.", sender);
+							TimerHandler.timerMode = TimerMode.BLAZESMP;
+							return true;
+						} else if (args[1].equalsIgnoreCase("normal")) {
+							Messager.msgSender("&6Set timer mode to normal.", sender);
+							TimerHandler.timerMode = TimerMode.NORMAL;
+							return true;
+						} else if (args[1].equalsIgnoreCase("battledome")) {
+							Messager.msgSender("&6Set timer mode to BATTLE DOME", sender);
+							TimerHandler.timerMode = TimerMode.BATTLEDOME;
+							return true;
+						} else if (args[1].equalsIgnoreCase("stop")) {
+							TimerHandler.setCurrentTimeLeft(-1);
+							TimerHandler.CURRENT_PHASE_ID = -1;
+							Messager.sendBC("&cThe current game has been stopped.");
+							Messager.msgSender("&c&lSTOPPED &6the timer.", sender);
+							return true;
+						} else if (args[1].equalsIgnoreCase("set")) {
+							TimerHandler.setCurrentTimeLeft(Integer.parseInt(args[2]));
+							Messager.msgSender("&6Set the timer to " + Integer.parseInt(args[2]), sender);
+							return true;
+						}
 					}
 					
 					} catch (ArrayIndexOutOfBoundsException e) {

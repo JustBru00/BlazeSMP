@@ -10,6 +10,8 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.scoreboard.Team;
@@ -24,6 +26,7 @@ import com.gmail.justbru00.blazesmp.listeners.TeamChangeRequestGUI;
 import com.gmail.justbru00.blazesmp.utils.Messager;
 import com.gmail.justbru00.blazesmp.utils.PluginFile;
 import com.gmail.justbru00.blazesmp.utils.team.TeamManager;
+import com.gmail.justbru00.blazesmp.utils.timestuffs.TimerRunnable;
 
 public class Main extends JavaPlugin implements CommandExecutor {
 	
@@ -79,10 +82,16 @@ public class Main extends JavaPlugin implements CommandExecutor {
 		pm.registerEvents(new OnJoin(), plugin);
 		pm.registerEvents(new OnLeave(), plugin);
 		pm.registerEvents(new BlazeSMPAdminMain(), plugin);
-		pm.registerEvents(new TeamChangeRequestGUI(), plugin);
+		pm.registerEvents(new TeamChangeRequestGUI(), plugin);	
+		
+		BukkitTask task = new TimerRunnable().runTaskTimer(plugin, 20, 20);
+		
 		
 		Messager.msgConsole("&aEnable Complete!!!");	
 	}
+	
+	
+	
 	/**
 	 * 
 	 * @return The current instance of {@link Main}
