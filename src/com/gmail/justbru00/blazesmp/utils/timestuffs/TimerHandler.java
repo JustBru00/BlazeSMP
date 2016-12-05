@@ -2,6 +2,7 @@ package com.gmail.justbru00.blazesmp.utils.timestuffs;
 
 import com.gmail.justbru00.blazesmp.utils.Messager;
 
+import io.puharesource.mc.titlemanager.api.ActionbarTitleObject;
 import io.puharesource.mc.titlemanager.api.TitleObject;
 
 public class TimerHandler {
@@ -68,16 +69,21 @@ public class TimerHandler {
 
 		} else if (timerMode == TimerMode.NORMAL) {
 
-		}
+		}		
 
 		if (CURRENT_PHASE_ID != -1) {
-			if (CURRENT_TIME_LEFT % 30 == 0) {
-				Messager.sendBC("&6Timer has &c" + CURRENT_TIME_LEFT + " &6seconds remaining in the stage "
-						+ BATTLEDOME_STAGES[CURRENT_PHASE_ID]);
-			} else if (CURRENT_TIME_LEFT < 11) {
-				Messager.sendBC("&6Timer has &c" + CURRENT_TIME_LEFT + " &6seconds remaining in the stage "
-						+ BATTLEDOME_STAGES[CURRENT_PHASE_ID]);
-			}
+			//if (CURRENT_TIME_LEFT % 30 == 0) {
+				//Messager.sendBC("&6Timer has &c" + CURRENT_TIME_LEFT + " &6seconds remaining in the stage "	+ BATTLEDOME_STAGES[CURRENT_PHASE_ID]);
+			//	ActionbarTitleObject ab = new ActionbarTitleObject(Messager.color("&c" + CURRENT_TIME_LEFT + " &6seconds remaining in the stage "	+ BATTLEDOME_STAGES[CURRENT_PHASE_ID]));
+			//	ab.broadcast();
+			//} else if (CURRENT_TIME_LEFT < 11) {
+				//Messager.sendBC("&6Timer has &c" + CURRENT_TIME_LEFT + " &6seconds remaining in the stage "	+ BATTLEDOME_STAGES[CURRENT_PHASE_ID]);
+			//	ActionbarTitleObject ab = new ActionbarTitleObject(Messager.color("&c" + CURRENT_TIME_LEFT + " &6seconds remaining in the stage "	+ BATTLEDOME_STAGES[CURRENT_PHASE_ID]));
+			//	ab.broadcast();
+			//}
+			
+			ActionbarTitleObject ab = new ActionbarTitleObject(Messager.color("&c" + CURRENT_TIME_LEFT + " &6seconds remaining in the stage "	+ BATTLEDOME_STAGES[CURRENT_PHASE_ID]));
+			ab.broadcast();
 		}
 
 		CURRENT_TIME_LEFT = CURRENT_TIME_LEFT - 1;

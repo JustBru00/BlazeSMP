@@ -12,6 +12,7 @@ import com.gmail.justbru00.blazesmp.main.Main;
 import com.gmail.justbru00.blazesmp.utils.Debug;
 import com.gmail.justbru00.blazesmp.utils.Messager;
 import com.gmail.justbru00.blazesmp.utils.PluginLogger;
+import com.gmail.justbru00.blazesmp.utils.cores.Core;
 import com.gmail.justbru00.blazesmp.utils.itemstuffs.PremadeInventory;
 import com.gmail.justbru00.blazesmp.utils.team.TeamManager;
 
@@ -45,6 +46,20 @@ public class BlazeSMPAdmin implements CommandExecutor {
 						player.openInventory(PremadeInventory.basMain(player));
 						
 						return true;
+					} else if (args[0].equalsIgnoreCase("testcore")) {
+						
+						if (!(sender instanceof Player)) {
+							Messager.msgSender("&cOnly players can test the core.", sender);
+							return true;
+						}
+						
+						Player player = (Player) sender;
+						
+						Core core = new Core(Team.NETHER, -194, 67, 204, player.getWorld());
+						core.placeDefaultCoreStructure();
+						
+						Messager.msgPlayer("&aPlaced core", player);
+						
 					} else if (args[0].equalsIgnoreCase("setteam")) { // /blazesmpadmin setteam [player] [team] <reason>
 						Debug.send("Handling setteam in /blazesmpadmin");
 						

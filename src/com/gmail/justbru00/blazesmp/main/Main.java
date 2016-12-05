@@ -10,7 +10,6 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
@@ -23,10 +22,13 @@ import com.gmail.justbru00.blazesmp.listeners.BlazeSMPAdminMain;
 import com.gmail.justbru00.blazesmp.listeners.OnJoin;
 import com.gmail.justbru00.blazesmp.listeners.OnLeave;
 import com.gmail.justbru00.blazesmp.listeners.TeamChangeRequestGUI;
+import com.gmail.justbru00.blazesmp.listeners.TempInteract;
 import com.gmail.justbru00.blazesmp.utils.Messager;
 import com.gmail.justbru00.blazesmp.utils.PluginFile;
 import com.gmail.justbru00.blazesmp.utils.team.TeamManager;
 import com.gmail.justbru00.blazesmp.utils.timestuffs.TimerRunnable;
+
+import io.puharesource.mc.titlemanager.TitleManager;
 
 public class Main extends JavaPlugin implements CommandExecutor {
 	
@@ -61,6 +63,21 @@ public class Main extends JavaPlugin implements CommandExecutor {
 		plugin = this;
 		Messager.msgConsole("&aStarting Plugin...");
 		
+		PluginManager pm = Bukkit.getServer().getPluginManager();
+		
+		if (pm.getPlugin("TitleManager") == null) {
+			Messager.msgConsole("&4&lTitleManager is not installed.");
+			log.severe("[BlazeSMP] TitleManager is not installed. DISABLING PLUGIN.");
+			pm.disablePlugin(this);
+			return;
+		}
+		
+		if (pm.getPlugin("ResourcePackApi") == null) {
+			Messager.msgConsole("&cResourcePackApi is not installed on this server. Custom sounds are now disabled.");			
+		}
+		
+		
+		
 		// Configs
 		saveDefaultConfig();
 		teamRequestsFile = new PluginFile(this, "teamrequests.yml", "teamrequests.yml");
@@ -76,14 +93,16 @@ public class Main extends JavaPlugin implements CommandExecutor {
 		getCommand("event").setExecutor(new Event());
 		
 		
-		PluginManager pm = Bukkit.getServer().getPluginManager();
+		
 		
 		// Listeners
 		pm.registerEvents(new OnJoin(), plugin);
 		pm.registerEvents(new OnLeave(), plugin);
 		pm.registerEvents(new BlazeSMPAdminMain(), plugin);
 		pm.registerEvents(new TeamChangeRequestGUI(), plugin);	
+		pm.registerEvents(new TempInteract(), plugin);
 		
+		@SuppressWarnings("unused")
 		BukkitTask task = new TimerRunnable().runTaskTimer(plugin, 20, 20);
 		
 		

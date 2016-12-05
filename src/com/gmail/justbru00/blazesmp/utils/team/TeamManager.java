@@ -1,7 +1,7 @@
 package com.gmail.justbru00.blazesmp.utils.team;
 
 import java.util.ArrayList;
-
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import com.gmail.justbru00.blazesmp.enums.Team;
@@ -64,10 +64,17 @@ public class TeamManager {
 		
 	}
 
-	public static Team getTeam(Player player) {		
-		String team = Main.getInstance().getConfig().getString("players.data." + player.getUniqueId() + ".team");	
+	public static Team getTeam(OfflinePlayer player) {		
+		String team = "";
+		
+		try {
+			team = Main.getInstance().getConfig().getString("players.data." + player.getUniqueId().toString() + ".team");	
+		} catch (NullPointerException e) {
+			Debug.send("&c&lString team = NULL");
+		}
 		
 		if (team == null) {
+			Debug.send("&cString team = NULL");
 			return null;
 		}
 		
@@ -81,7 +88,7 @@ public class TeamManager {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public static void setTeam(Player player, Team team) { 
+	public static void setTeam(OfflinePlayer player, Team team) { 
 		if (getTeam(player) == team) {
 			Debug.send("TeamHandler.setTeam() had an error: Player is already on that team.");
 			return;
@@ -96,7 +103,7 @@ public class TeamManager {
 		} 
 		
 		if (team == Team.ICE) {
-			Main.getInstance().getConfig().set("players.data." + player.getUniqueId() + ".team", "ICE");
+			Main.getInstance().getConfig().set("players.data." + player.getUniqueId().toString() + ".team", "ICE");
 			Main.getInstance().saveConfig();	
 			
 			Main.getInstance().getConfig().set("teams.ice.total", Main.getInstance().getConfig().getInt("teams.ice.total") + 1);
@@ -106,7 +113,12 @@ public class TeamManager {
 			
 			Messager.sendBC("&b" + player.getName() + " joined ICE team.");
 		} else if (team == Team.NETHER) {
-			Main.getInstance().getConfig().set("players.data." + player.getUniqueId() + ".team", "NETHER");
+			
+			if (Main.getInstance() == null) {
+				Debug.send("Main.getInstance() is null");
+			}
+			
+			Main.getInstance().getConfig().set("players.data." + player.getUniqueId().toString() + ".team", "NETHER");
 			Main.getInstance().saveConfig();
 			
 			Main.getInstance().getConfig().set("teams.nether.total", Main.getInstance().getConfig().getInt("teams.nether.total") + 1);
@@ -116,7 +128,7 @@ public class TeamManager {
 			
 			Messager.sendBC("&c" + player.getName() + " joined NETHER team.");
 		} else if (team == Team.NONE) {
-			Main.getInstance().getConfig().set("players.data." + player.getUniqueId() + ".team", "NONE");
+			Main.getInstance().getConfig().set("players.data." + player.getUniqueId().toString() + ".team", "NONE");
 			Main.getInstance().saveConfig();
 
 			Main.NONE.addPlayer(player);

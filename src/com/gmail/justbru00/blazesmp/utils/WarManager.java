@@ -5,7 +5,7 @@ import org.bukkit.Bukkit;
 import com.gmail.justbru00.blazesmp.enums.War;
 import com.gmail.justbru00.blazesmp.listeners.PvpListener;
 import com.gmail.justbru00.blazesmp.utils.chestlock.ChestLocks;
-import com.gmail.justbru00.blazesmp.utils.cores.Cores;
+import com.gmail.justbru00.blazesmp.utils.cores.CoreManager;
 import com.gmail.justbru00.blazesmp.utils.timestuffs.TimerHandler;
 
 public class WarManager {
@@ -54,7 +54,7 @@ public class WarManager {
 			
 			setWarState(ws);
 			
-			Cores.setEnabled(false);
+			CoreManager.setCoresEnabled(false);
 			Effects.setEnabled(true);
 			ChestLocks.setAllLocksEnabled(true);
 			// Enabled dungons.

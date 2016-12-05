@@ -1,5 +1,8 @@
 package com.gmail.justbru00.blazesmp.listeners;
 
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -51,7 +54,7 @@ public class TeamChangeRequestGUI implements Listener{
 				tcr.setDenied(false);
 				tcr.writeToConfig();
 				
-				TeamManager.setTeam((Player) e.getWhoClicked(), tcr.getTeamToChangeTo());
+				TeamManager.setTeam(Bukkit.getOfflinePlayer(UUID.fromString(tcr.getRequesterUUID())), tcr.getTeamToChangeTo());
 				
 				e.getWhoClicked().closeInventory();
 				
