@@ -3,6 +3,7 @@ package com.gmail.justbru00.blazesmp.utils.cores;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.BlockState;
+import org.bukkit.material.MaterialData;
 
 /**
  * Handles Team Core Stuff
@@ -39,6 +40,14 @@ public class CoreManager {
 	public static void setBlock(Material m, int x, int y, int z, World world) {
 		BlockState a = world.getBlockAt(x, y, z).getState();
 		a.setType(m);
+		a.update(true);
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static void setBlock(Material m, int data, int x, int y, int z, World world) {
+		BlockState a = world.getBlockAt(x, y, z).getState();
+		a.setType(m);
+		a.setRawData((byte) data);
 		a.update(true);
 	}
 	

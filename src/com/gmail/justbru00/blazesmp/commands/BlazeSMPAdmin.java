@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
+import com.gmail.justbru00.blazesmp.enums.CoreState;
 import com.gmail.justbru00.blazesmp.enums.Team;
 import com.gmail.justbru00.blazesmp.main.Main;
 import com.gmail.justbru00.blazesmp.utils.Debug;
@@ -56,10 +57,27 @@ public class BlazeSMPAdmin implements CommandExecutor {
 						Player player = (Player) sender;
 						
 						Core core = new Core(Team.NETHER, -194, 67, 204, player.getWorld());
-						core.placeDefaultCoreStructure();
+						
+						if (args.length != 2) {
+							Messager.msgPlayer("&cPlease provide the type of core.", player);
+							return true;
+						}
+						
+						if (args[1].equalsIgnoreCase("default")) {
+							core.buildCoreStructure(CoreState.DEFAULT);
+						} else if (args[1].equalsIgnoreCase("green")) {
+							core.buildCoreStructure(CoreState.GREEN);
+						} else if (args[1].equalsIgnoreCase("yellow")) {
+							core.buildCoreStructure(CoreState.YELLOW);
+						} else if (args[1].equalsIgnoreCase("red")) {
+							core.buildCoreStructure(CoreState.RED);
+						} else if (args[1].equalsIgnoreCase("broken")) {
+							core.buildCoreStructure(CoreState.BROKEN);
+						}
 						
 						Messager.msgPlayer("&aPlaced core", player);
 						
+						return true;
 					} else if (args[0].equalsIgnoreCase("setteam")) { // /blazesmpadmin setteam [player] [team] <reason>
 						Debug.send("Handling setteam in /blazesmpadmin");
 						
