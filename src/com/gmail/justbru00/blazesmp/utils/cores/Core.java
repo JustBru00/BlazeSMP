@@ -37,7 +37,10 @@ public class Core {
 			
 		}
 	}
-	
+	/**
+	 * Places the blocks to build the core for the current state.
+	 * @param ct The {@link CoreState} design you would like to place blocks for.
+	 */
 	public void buildCoreStructure(CoreState ct) {
 		int x = coreLoc.getBlockX();
 		int y = coreLoc.getBlockY();
