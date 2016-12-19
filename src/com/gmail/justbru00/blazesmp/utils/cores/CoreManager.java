@@ -1,9 +1,10 @@
 package com.gmail.justbru00.blazesmp.utils.cores;
 
+import java.util.ArrayList;
+
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.BlockState;
-import org.bukkit.material.MaterialData;
 
 /**
  * Handles Team Core Stuff
@@ -11,8 +12,11 @@ import org.bukkit.material.MaterialData;
  *
  */
 public class CoreManager {
+	
+	public static ArrayList<Core> cores = new ArrayList<Core>();
+	
 	/**
-	 * If the core is disabled or not.
+	 * If the core breaking is enabled or not.
 	 */
 	private static boolean coresEnabled = false;
 
@@ -22,7 +26,13 @@ public class CoreManager {
 	 */
 	public static void setCoresEnabled(boolean x) {
 		coresEnabled = x;
-		// TODO If disabling cores -> Reset them.
+		
+		if (x == false) {
+			for (Core c : cores) {
+				c.reset();
+			}
+		}
+		
 	}
 	
 	public static boolean areCoresEnabled() {

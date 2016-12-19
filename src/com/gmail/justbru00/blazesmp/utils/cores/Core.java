@@ -1,12 +1,22 @@
 package com.gmail.justbru00.blazesmp.utils.cores;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
 
 import com.gmail.justbru00.blazesmp.enums.CoreState;
 import com.gmail.justbru00.blazesmp.enums.Team;
 import com.gmail.justbru00.blazesmp.utils.Debug;
+import com.gmail.justbru00.blazesmp.utils.Messager;
+
+import io.puharesource.mc.titlemanager.api.ActionbarTitleObject;
 
 public class Core {
 
@@ -14,7 +24,7 @@ public class Core {
 	private Location coreLoc;
 	private World world;
 	private short timesLeftToBreak = -1;
-	private byte percentageLeft = 100;
+	private double percentageLeft = 100;
 	private boolean coreBreakable = false;		
 	private CoreState currentState = CoreState.DEFAULT;
 			
@@ -22,11 +32,20 @@ public class Core {
 		owner = _owner;
 		coreLoc = new Location(coreIsIn, locX, locY, locZ);
 		world = coreIsIn;
+		CoreManager.cores.add(this);
+	}
+	
+	/**
+	 * Gets the location of the core. Keep in mind this is NOT the core structure.
+	 * @return The location of the core.
+	 */
+	public Location getLocation() {
+		return coreLoc;
 	}
 
 	/**
-	 * Sets the core as breakable or not. (Used during war)
-	 * 
+	 * @deprecated {@link CoreManager#setCoresEnabled(boolean)} SHOULD BE USED INSTEAD OF THIS FOR WAR. THIS METHOD IS FOR A FUTURE IMPLEMENTATION.
+	 * Sets the core as breakable or not.
 	 * @param x
 	 */
 	public void setBreakable(boolean x) {
@@ -37,6 +56,84 @@ public class Core {
 			
 		}
 	}
+	
+	/**
+	 * Resets the core back to it's normal state.
+	 */
+	public void reset() {
+		buildCoreStructure(CoreState.DEFAULT);
+		timesLeftToBreak = (short) 300;		
+		Debug.send("Core at " + coreLoc.toString() + " has been reset.");
+	}
+
+	/**
+	 * Updates the percentage display and the glass color
+	 */
+	public void updateCoreStatus() {
+		if (CoreState.DEFAULT == currentState) {
+			buildCoreStructure(CoreState.GREEN);
+			currentState = CoreState.GREEN;
+		}
+		
+		percentageLeft = (timesLeftToBreak / 300) * (int) 100;		
+		
+		if ((percentageLeft < 101) && (percentageLeft > 74)) { // 100% to 74%
+			currentState = CoreState.GREEN;
+		} else if ((percentageLeft < 75) && (percentageLeft > 14)) { // 74% to 15%
+			currentState = CoreState.YELLOW;
+		} else if (percentageLeft < 15) { // 14% to 0%
+			currentState = CoreState.RED;
+		} else if (percentageLeft <=0) {
+			Debug.send("CORE IS BROKEN.");
+			currentState = CoreState.BROKEN;
+		}
+		
+		buildCoreStructure(currentState);
+		
+		Debug.send("There is " + percentageLeft + "% left.");
+	}
+	/**
+	 * Gets the players nearby the cores location.
+	 * @param distance
+	 * @return
+	 */
+	public List<Player> getNearbyPlayers(double distance) {
+	   double radius = distance;	   
+	   List<Entity> nearby = coreLoc.getWorld().getEntities();
+	   List<Player> players = new ArrayList<Player>();
+	   
+	   for (Entity e : nearby) {
+		   if (e.getLocation().distance(coreLoc) <= radius) {
+			   if (e.getType() == EntityType.PLAYER) {
+				   Debug.send("Found player " + e.getName());
+				   players.add((Player) e);
+			   }
+		   }
+	   }
+	   
+	   return players;
+	}
+
+	public void coreBreakHandle() {		
+		if (CoreManager.areCoresEnabled()) {
+			timesLeftToBreak = (short) (timesLeftToBreak - 1);
+			updateCoreStatus();
+			return;
+		} else {
+			Debug.send("Core is unbreakable.");
+			return;
+		}
+	}
+
+	/**
+	 * @deprecated Use {@link CoreManager#areCoresEnabled()}
+	 * @return
+	 */
+	public boolean coreIsBreakable() {
+		return coreBreakable;
+	}
+
+	
 	/**
 	 * Places the blocks to build the core for the current state.
 	 * @param ct The {@link CoreState} design you would like to place blocks for.
@@ -353,33 +450,5 @@ public class Core {
 	
 	}
 	
-	/**
-	 * Resets the core back to it's normal state.
-	 */
-	public void reset() {
-		// TODO Place blocks and reset values
-	}
-
-	/**
-	 * Updates the percentage display and the glass color
-	 */
-	public void updateCoreStatus() {
-		// TODO Calc percentage and change glass color
-	}
-
-	public void coreBreakHandle() {
-		if (coreIsBreakable()) {
-			timesLeftToBreak = (short) (timesLeftToBreak - 1);
-			updateCoreStatus();
-			return;
-		} else {
-			Debug.send("Core is unbreakable.");
-			return;
-		}
-	}
-
-	public boolean coreIsBreakable() {
-		return coreBreakable;
-	}
 
 }

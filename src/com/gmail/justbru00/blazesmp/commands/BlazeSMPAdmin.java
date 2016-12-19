@@ -14,6 +14,7 @@ import com.gmail.justbru00.blazesmp.utils.Debug;
 import com.gmail.justbru00.blazesmp.utils.Messager;
 import com.gmail.justbru00.blazesmp.utils.PluginLogger;
 import com.gmail.justbru00.blazesmp.utils.cores.Core;
+import com.gmail.justbru00.blazesmp.utils.cores.CoreManager;
 import com.gmail.justbru00.blazesmp.utils.itemstuffs.PremadeInventory;
 import com.gmail.justbru00.blazesmp.utils.team.TeamManager;
 
@@ -55,8 +56,8 @@ public class BlazeSMPAdmin implements CommandExecutor {
 						}
 						
 						Player player = (Player) sender;
+							
 						
-						Core core = new Core(Team.NETHER, -194, 67, 204, player.getWorld());
 						
 						if (args.length != 2) {
 							Messager.msgPlayer("&cPlease provide the type of core.", player);
@@ -64,15 +65,15 @@ public class BlazeSMPAdmin implements CommandExecutor {
 						}
 						
 						if (args[1].equalsIgnoreCase("default")) {
-							core.buildCoreStructure(CoreState.DEFAULT);
+							CoreManager.cores.get(0).buildCoreStructure(CoreState.DEFAULT);
 						} else if (args[1].equalsIgnoreCase("green")) {
-							core.buildCoreStructure(CoreState.GREEN);
+							CoreManager.cores.get(0).buildCoreStructure(CoreState.GREEN);
 						} else if (args[1].equalsIgnoreCase("yellow")) {
-							core.buildCoreStructure(CoreState.YELLOW);
+							CoreManager.cores.get(0).buildCoreStructure(CoreState.YELLOW);
 						} else if (args[1].equalsIgnoreCase("red")) {
-							core.buildCoreStructure(CoreState.RED);
+							CoreManager.cores.get(0).buildCoreStructure(CoreState.RED);
 						} else if (args[1].equalsIgnoreCase("broken")) {
-							core.buildCoreStructure(CoreState.BROKEN);
+							CoreManager.cores.get(0).buildCoreStructure(CoreState.BROKEN);
 						}
 						
 						Messager.msgPlayer("&aPlaced core", player);

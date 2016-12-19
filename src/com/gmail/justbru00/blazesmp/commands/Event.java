@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 
 import com.gmail.justbru00.blazesmp.main.Main;
 import com.gmail.justbru00.blazesmp.utils.Messager;
+import com.gmail.justbru00.blazesmp.utils.cores.CoreManager;
 import com.gmail.justbru00.blazesmp.utils.team.TeamManager;
 import com.gmail.justbru00.blazesmp.utils.timestuffs.TimerHandler;
 import com.gmail.justbru00.blazesmp.utils.timestuffs.TimerMode;
@@ -81,6 +82,16 @@ public class Event implements CommandExecutor {
 							TimerHandler.setCurrentTimeLeft(Integer.parseInt(args[2]));
 							Messager.msgSender("&6Set the timer to " + Integer.parseInt(args[2]), sender);
 							return true;
+						}
+					} else if (args[0].equalsIgnoreCase("enablecores")) {
+						if (args[1].equalsIgnoreCase("true")) {
+							CoreManager.setCoresEnabled(true);
+							Messager.sendBC("&aCore Breaking has been ENABLED.");
+						} else if (args[1].equalsIgnoreCase("false")) {
+							CoreManager.setCoresEnabled(false);
+							Messager.sendBC("&cCore breaking has benn DISABLED.");
+						} else {
+							Messager.msgSender("&cPlease provide true or false.", sender);
 						}
 					}
 					

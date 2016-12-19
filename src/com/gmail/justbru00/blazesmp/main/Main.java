@@ -19,11 +19,13 @@ import com.gmail.justbru00.blazesmp.commands.BlazeSMPAdmin;
 import com.gmail.justbru00.blazesmp.commands.Event;
 import com.gmail.justbru00.blazesmp.commands.RequestTeam;
 import com.gmail.justbru00.blazesmp.listeners.BlazeSMPAdminMain;
+import com.gmail.justbru00.blazesmp.listeners.OnBlockBreak;
 import com.gmail.justbru00.blazesmp.listeners.OnJoin;
 import com.gmail.justbru00.blazesmp.listeners.OnLeave;
 import com.gmail.justbru00.blazesmp.listeners.TeamChangeRequestGUI;
 import com.gmail.justbru00.blazesmp.utils.Messager;
 import com.gmail.justbru00.blazesmp.utils.PluginFile;
+import com.gmail.justbru00.blazesmp.utils.cores.Core;
 import com.gmail.justbru00.blazesmp.utils.team.TeamManager;
 import com.gmail.justbru00.blazesmp.utils.timestuffs.TimerRunnable;
 
@@ -99,10 +101,13 @@ public class Main extends JavaPlugin implements CommandExecutor {
 		pm.registerEvents(new OnLeave(), plugin);
 		pm.registerEvents(new BlazeSMPAdminMain(), plugin);
 		pm.registerEvents(new TeamChangeRequestGUI(), plugin);	
+		pm.registerEvents(new OnBlockBreak(), plugin);
 
 		
 		@SuppressWarnings("unused")
 		BukkitTask task = new TimerRunnable().runTaskTimer(plugin, 20, 20);
+		
+		Core core = new Core(com.gmail.justbru00.blazesmp.enums.Team.NETHER, -194, 67, 204, Bukkit.getWorld("world"));		
 		
 		
 		Messager.msgConsole("&aEnable Complete!!!");	
