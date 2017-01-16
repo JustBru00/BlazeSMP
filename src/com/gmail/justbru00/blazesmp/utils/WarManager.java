@@ -55,7 +55,7 @@ public class WarManager {
 			setWarState(ws);
 			
 			CoreManager.setCoresEnabled(false);
-			Effects.setEnabled(true);
+			TeamPowers.setEnabled(true);
 			ChestLocks.setAllLocksEnabled(true);
 			// Enabled dungons.
 			

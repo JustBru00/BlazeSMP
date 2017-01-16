@@ -1,6 +1,6 @@
 package com.gmail.justbru00.blazesmp.utils;
 
-public class Effects {
+public class TeamPowers {
 	
 	private static boolean EFFECTS_ENABLED = true;
 

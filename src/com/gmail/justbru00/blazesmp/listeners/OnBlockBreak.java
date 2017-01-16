@@ -21,7 +21,7 @@ public class OnBlockBreak implements Listener {
 		
 			
 			for (Core c : CoreManager.cores) { // Check all setup cores
-				if (e.getBlock().getLocation() == c.getLocation()) {
+				if (e.getBlock().getLocation().equals(c.getLocation())) {
 					c.coreBreakHandle();	
 					e.setCancelled(true);
 				}

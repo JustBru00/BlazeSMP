@@ -79,7 +79,16 @@ public class BlazeSMPAdmin implements CommandExecutor {
 						Messager.msgPlayer("&aPlaced core", player);
 						
 						return true;
-					} else if (args[0].equalsIgnoreCase("setteam")) { // /blazesmpadmin setteam [player] [team] <reason>
+					} else if (args[0].equalsIgnoreCase("corebreak")) {
+						if (CoreManager.areCoresEnabled()) {
+							CoreManager.setCoresEnabled(false);
+							Debug.send("Cores are now disabled");
+						} else {
+							CoreManager.setCoresEnabled(true);
+							Debug.send("Cores are now enabled.");
+						}
+						return true;
+					} else if (args[0].equalsIgnoreCase("setteam")) { // /blazesmpadmin setteam [player] [team] <reason>						
 						Debug.send("Handling setteam in /blazesmpadmin");
 						
 						if (args.length >= 3)  { // Required Args handling.

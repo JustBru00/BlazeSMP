@@ -23,7 +23,7 @@ public class Core {
 	private Team owner;
 	private Location coreLoc;
 	private World world;
-	private short timesLeftToBreak = -1;
+	private short timesLeftToBreak = 300;
 	private double percentageLeft = 100;
 	private boolean coreBreakable = false;		
 	private CoreState currentState = CoreState.DEFAULT;
@@ -63,6 +63,7 @@ public class Core {
 	public void reset() {
 		buildCoreStructure(CoreState.DEFAULT);
 		timesLeftToBreak = (short) 300;		
+		percentageLeft = 100;
 		Debug.send("Core at " + coreLoc.toString() + " has been reset.");
 	}
 
@@ -75,21 +76,21 @@ public class Core {
 			currentState = CoreState.GREEN;
 		}
 		
-		percentageLeft = (timesLeftToBreak / 300) * (int) 100;		
+		percentageLeft = (((double)timesLeftToBreak / 300)) * (int) 100;		
 		
 		if ((percentageLeft < 101) && (percentageLeft > 74)) { // 100% to 74%
 			currentState = CoreState.GREEN;
 		} else if ((percentageLeft < 75) && (percentageLeft > 14)) { // 74% to 15%
 			currentState = CoreState.YELLOW;
-		} else if (percentageLeft < 15) { // 14% to 0%
+		} else if ((percentageLeft < 15) && (percentageLeft > 0)) { // 14% to 0%
 			currentState = CoreState.RED;
-		} else if (percentageLeft <=0) {
+		} else if (timesLeftToBreak <= 0) {
 			Debug.send("CORE IS BROKEN.");
 			currentState = CoreState.BROKEN;
 		}
 		
 		buildCoreStructure(currentState);
-		
+		Debug.send("There is " + timesLeftToBreak + " health lefts.");
 		Debug.send("There is " + percentageLeft + "% left.");
 	}
 	/**

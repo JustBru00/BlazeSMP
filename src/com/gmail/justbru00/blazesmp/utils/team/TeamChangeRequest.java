@@ -30,7 +30,7 @@ public class TeamChangeRequest {
 	private long acceptedTime = -1;
 
 	/**
-	 * Used for creating a {@link TeamChangeRequest} object. This constructor is for reqesting.
+	 * Used for creating a {@link TeamChangeRequest} object. This constructor is for requesting.
 	 * @param _requesterUUID The UUID of the player who wants to switch to a different team.
 	 * @param _teamToChangeTo The {@link Team} the player wants to switch to.
 	 * @param reasonForChange The reason the player wants to switch.

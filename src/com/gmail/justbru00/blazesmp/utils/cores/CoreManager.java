@@ -6,6 +6,8 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.BlockState;
 
+import com.gmail.justbru00.blazesmp.enums.Team;
+
 /**
  * Handles Team Core Stuff
  * @author Justin Brubaker
@@ -32,6 +34,10 @@ public class CoreManager {
 				c.reset();
 			}
 		}
+		
+	}
+	
+	public static void updateBossBars(int percent, Team coresTeam) {
 		
 	}
 	

@@ -26,6 +26,7 @@ import com.gmail.justbru00.blazesmp.listeners.TeamChangeRequestGUI;
 import com.gmail.justbru00.blazesmp.utils.Messager;
 import com.gmail.justbru00.blazesmp.utils.PluginFile;
 import com.gmail.justbru00.blazesmp.utils.cores.Core;
+import com.gmail.justbru00.blazesmp.utils.cores.CoreManager;
 import com.gmail.justbru00.blazesmp.utils.team.TeamManager;
 import com.gmail.justbru00.blazesmp.utils.timestuffs.TimerRunnable;
 
@@ -108,6 +109,7 @@ public class Main extends JavaPlugin implements CommandExecutor {
 		BukkitTask task = new TimerRunnable().runTaskTimer(plugin, 20, 20);
 		
 		Core core = new Core(com.gmail.justbru00.blazesmp.enums.Team.NETHER, -194, 67, 204, Bukkit.getWorld("world"));		
+		
 		
 		
 		Messager.msgConsole("&aEnable Complete!!!");	
