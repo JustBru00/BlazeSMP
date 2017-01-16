@@ -33,9 +33,8 @@ import com.gmail.justbru00.blazesmp.main.Main;
 
 public class Messager {
 
-	public static String color(String uncolored){
-		String colored = uncolored.replace('_', ' ');		
-		return ChatColor.translateAlternateColorCodes('&', colored);		
+	public static String color(String uncolored){			
+		return ChatColor.translateAlternateColorCodes('&', uncolored);		
 	}
 	
 	public static void msgConsole(String msg) {		
