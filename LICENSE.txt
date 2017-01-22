@@ -1,4 +1,4 @@
-Copyright (c) 2016 Justin "JustBru00" Brubaker
+Copyright (c) 2017 Justin "JustBru00" Brubaker
 
 The author ("Justin "JustBru00" Brubaker") reserves the right to change this license without notice at anytime.
 "BlazeSMP" and its source is also known as the "Software" in this license.
