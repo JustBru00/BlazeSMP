@@ -56,6 +56,10 @@ public class Main extends JavaPlugin implements CommandExecutor {
 	@Override
 	public void onDisable() {
 		
+		for (Core core : CoreManager.cores) {
+			core.reset();
+		}
+		
 		Messager.msgConsole("&6The plugin has been disabled.");
 		plugin = null; // Close Memory Leak
 	}
@@ -108,9 +112,9 @@ public class Main extends JavaPlugin implements CommandExecutor {
 		@SuppressWarnings("unused")
 		BukkitTask task = new TimerRunnable().runTaskTimer(plugin, 20, 20);
 		
-		Core core = new Core(com.gmail.justbru00.blazesmp.enums.Team.NETHER, -194, 67, 204, Bukkit.getWorld("world"));		
-		
-		
+		Core core = new Core(com.gmail.justbru00.blazesmp.enums.Team.NETHER, -194, 66, 204, Bukkit.getWorld("world"));		
+		// -147 66 214
+		Core core2 = new Core(com.gmail.justbru00.blazesmp.enums.Team.ICE, -147, 66, 214, Bukkit.getWorld("world"));	
 		
 		Messager.msgConsole("&aEnable Complete!!!");	
 	}

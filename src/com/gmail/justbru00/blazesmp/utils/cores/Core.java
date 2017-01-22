@@ -3,9 +3,13 @@ package com.gmail.justbru00.blazesmp.utils.cores;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -27,12 +31,30 @@ public class Core {
 	private double percentageLeft = 100;
 	private boolean coreBreakable = false;		
 	private CoreState currentState = CoreState.DEFAULT;
+	private BossBar bossBar = null;
 			
 	public Core(Team _owner, int locX, int locY, int locZ, World coreIsIn) {
 		owner = _owner;
 		coreLoc = new Location(coreIsIn, locX, locY, locZ);
 		world = coreIsIn;
 		CoreManager.cores.add(this);
+		
+		if (owner == Team.ICE) {
+			bossBar = Bukkit.createBossBar(Messager.color("&bIce Core"), BarColor.BLUE, BarStyle.SEGMENTED_10);
+			bossBar.setProgress(1.0);			
+		} else if (owner == Team.NETHER) {
+			bossBar = Bukkit.createBossBar(Messager.color("&cNether Core"), BarColor.RED, BarStyle.SEGMENTED_10);
+			bossBar.setProgress(1.0);	
+			
+		}		
+	}
+	
+	/**
+	 * Gets the BossBar for this core
+	 * @return The boss bar.
+	 */
+	public BossBar getBossBar() {
+		return bossBar;
 	}
 	
 	/**
@@ -63,20 +85,33 @@ public class Core {
 	public void reset() {
 		buildCoreStructure(CoreState.DEFAULT);
 		timesLeftToBreak = (short) 300;		
-		percentageLeft = 100;
+		percentageLeft = 100;		
+		bossBar.setVisible(false);
+		
+		if (owner == Team.ICE) {
+			bossBar.setTitle(Messager.color("&bIce Core"));
+			bossBar.setProgress(1.0);			
+		} else if (owner == Team.NETHER) {
+			bossBar.setTitle(Messager.color("&cNether Core"));
+			bossBar.setProgress(1.0);	
+			
+		}		
+		
 		Debug.send("Core at " + coreLoc.toString() + " has been reset.");
 	}
 
 	/**
 	 * Updates the percentage display and the glass color
 	 */
-	public void updateCoreStatus() {
+	public void updateCoreStatus() {			
 		if (CoreState.DEFAULT == currentState) {
 			buildCoreStructure(CoreState.GREEN);
 			currentState = CoreState.GREEN;
 		}
 		
-		percentageLeft = (((double)timesLeftToBreak / 300)) * (int) 100;		
+		percentageLeft = (((double)timesLeftToBreak / 300)) * (int) 100;	
+		
+		CoreManager.updateBossBars();
 		
 		if ((percentageLeft < 101) && (percentageLeft > 74)) { // 100% to 74%
 			currentState = CoreState.GREEN;
@@ -93,6 +128,12 @@ public class Core {
 		Debug.send("There is " + timesLeftToBreak + " health lefts.");
 		Debug.send("There is " + percentageLeft + "% left.");
 	}
+	
+	
+	public double getPercentage() {
+		return percentageLeft;
+	}
+	
 	/**
 	 * Gets the players nearby the cores location.
 	 * @param distance

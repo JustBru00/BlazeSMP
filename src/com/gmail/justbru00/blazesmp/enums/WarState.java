@@ -1,6 +1,6 @@
 package com.gmail.justbru00.blazesmp.enums;
 
-public enum War {
+public enum WarState {
 
 	PEACE, START, DURING, END, FORCESTOP, COOLDOWN, FORCESTART;
 	

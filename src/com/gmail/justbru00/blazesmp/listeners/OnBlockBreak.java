@@ -12,9 +12,7 @@ import com.gmail.justbru00.blazesmp.utils.cores.CoreManager;
 public class OnBlockBreak implements Listener {
 	
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = false)
-	public void onBlockBreakEvent(BlockBreakEvent e) {
-		
-		Debug.send("Block broken");
+	public void onBlockBreakEvent(BlockBreakEvent e) {	
 		
 		if (CoreManager.areCoresEnabled()) { // Are you allowed to break the cores?
 			

@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 
 import com.gmail.justbru00.blazesmp.enums.CoreState;
 import com.gmail.justbru00.blazesmp.enums.Team;
+import com.gmail.justbru00.blazesmp.enums.WarState;
 import com.gmail.justbru00.blazesmp.main.Main;
 import com.gmail.justbru00.blazesmp.utils.Debug;
 import com.gmail.justbru00.blazesmp.utils.Messager;
@@ -17,6 +18,7 @@ import com.gmail.justbru00.blazesmp.utils.cores.Core;
 import com.gmail.justbru00.blazesmp.utils.cores.CoreManager;
 import com.gmail.justbru00.blazesmp.utils.itemstuffs.PremadeInventory;
 import com.gmail.justbru00.blazesmp.utils.team.TeamManager;
+import com.gmail.justbru00.blazesmp.war.WarManager;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -48,10 +50,10 @@ public class BlazeSMPAdmin implements CommandExecutor {
 						player.openInventory(PremadeInventory.basMain(player));
 						
 						return true;
-					} else if (args[0].equalsIgnoreCase("testcore")) {
+					} else if (args[0].equalsIgnoreCase("setstate")) {
 						
 						if (!(sender instanceof Player)) {
-							Messager.msgSender("&cOnly players can test the core.", sender);
+							Messager.msgSender("&cOnly players set the state.", sender);
 							return true;
 						}
 						
@@ -60,26 +62,47 @@ public class BlazeSMPAdmin implements CommandExecutor {
 						
 						
 						if (args.length != 2) {
-							Messager.msgPlayer("&cPlease provide the type of core.", player);
+							Messager.msgPlayer("&cPlease provide a state.", player);
 							return true;
 						}
 						
-						if (args[1].equalsIgnoreCase("default")) {
-							CoreManager.cores.get(0).buildCoreStructure(CoreState.DEFAULT);
-						} else if (args[1].equalsIgnoreCase("green")) {
-							CoreManager.cores.get(0).buildCoreStructure(CoreState.GREEN);
-						} else if (args[1].equalsIgnoreCase("yellow")) {
-							CoreManager.cores.get(0).buildCoreStructure(CoreState.YELLOW);
-						} else if (args[1].equalsIgnoreCase("red")) {
-							CoreManager.cores.get(0).buildCoreStructure(CoreState.RED);
-						} else if (args[1].equalsIgnoreCase("broken")) {
-							CoreManager.cores.get(0).buildCoreStructure(CoreState.BROKEN);
+						if (args[1].equalsIgnoreCase("start")) {
+							WarManager.CURRENT_WAR_STATE = WarState.START;
+						} else if (args[1].equalsIgnoreCase("end")) {
+							WarManager.CURRENT_WAR_STATE = WarState.END;
+						} else if (args[1].equalsIgnoreCase("during")) {
+							WarManager.CURRENT_WAR_STATE = WarState.DURING;
+						} else if (args[1].equalsIgnoreCase("cooldown")) {
+							WarManager.CURRENT_WAR_STATE = WarState.COOLDOWN;
+						} else if (args[1].equalsIgnoreCase("peace")) {
+							WarManager.CURRENT_WAR_STATE = WarState.PEACE;
 						}
 						
-						Messager.msgPlayer("&aPlaced core", player);
+						Messager.msgPlayer("&aSet state.", player);
 						
 						return true;
-					} else if (args[0].equalsIgnoreCase("corebreak")) {
+					} else if (args[0].equalsIgnoreCase("settime")) {
+						
+						if (!(sender instanceof Player)) {
+							Messager.msgSender("&cOnly players set the time.", sender);
+							return true;
+						}
+						
+						Player player = (Player) sender;
+							
+						
+						
+						if (args.length != 2) {
+							Messager.msgPlayer("&cPlease provide a time.", player);
+							return true;
+						}
+						
+						WarManager.timeLeft = Integer.parseInt(args[1]);
+						
+						Messager.msgPlayer("&aSet time.", player);
+						
+						return true;
+					}else if (args[0].equalsIgnoreCase("corebreak")) {
 						if (CoreManager.areCoresEnabled()) {
 							CoreManager.setCoresEnabled(false);
 							Debug.send("Cores are now disabled");

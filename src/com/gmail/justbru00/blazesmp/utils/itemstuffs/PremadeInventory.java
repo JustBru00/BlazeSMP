@@ -23,9 +23,20 @@ public class PremadeInventory {
 	public static ItemStack disabled = new ItemStack(Material.INK_SACK, 1, (short) 8);
 	public static final String TEAM_REQUESTS_NAME = Messager.color("&eTeam Change Requests");
 	public static final String TEAM_REQUESTS_CONFIRM_PREFIX = Messager.color("&eTeam Change Request #");
+	public static final String WAR_GUI_NAME = Messager.color("&cWar Options");
 	public static ItemStack accept = new ItemStack(Material.EMERALD_BLOCK);
 	public static ItemStack deny = new ItemStack(Material.REDSTONE_BLOCK);
 	public static ItemStack backArrow = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+	
+	
+	public static Inventory warGUI() {
+		Inventory i = Bukkit.createInventory(null, 27, WAR_GUI_NAME);
+		
+		
+		
+		
+		return i;
+	}
 
 	public static Inventory confirmTeamRequest(ItemStack clickedItem) {
 		

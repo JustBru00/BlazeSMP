@@ -65,10 +65,6 @@ public class TimerHandler {
 				setCurrentTimeLeft(-1);
 			}
 
-		} else if (timerMode == TimerMode.BLAZESMP) {
-
-		} else if (timerMode == TimerMode.NORMAL) {
-
 		}		
 
 		if (CURRENT_PHASE_ID != -1) {
