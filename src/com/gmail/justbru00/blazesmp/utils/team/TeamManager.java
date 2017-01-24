@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 
 import com.gmail.justbru00.blazesmp.enums.Team;
 import com.gmail.justbru00.blazesmp.main.Main;
+import com.gmail.justbru00.blazesmp.scoreboard.EpicScoreboardManager;
 import com.gmail.justbru00.blazesmp.utils.Debug;
 import com.gmail.justbru00.blazesmp.utils.Messager;
 
@@ -16,8 +17,8 @@ public class TeamManager {
 	
 	
 	public static void setFriendlyFireEnabled(boolean b) {
-		Main.ICE.setAllowFriendlyFire(b);
-		Main.NETHER.setAllowFriendlyFire(b);		
+		EpicScoreboardManager.ICE.setAllowFriendlyFire(b);
+		EpicScoreboardManager.NETHER.setAllowFriendlyFire(b);		
 	}
 	
 	public static void refreshRequestsFromConfig() {
@@ -109,7 +110,7 @@ public class TeamManager {
 			Main.getInstance().getConfig().set("teams.ice.total", Main.getInstance().getConfig().getInt("teams.ice.total") + 1);
 			Main.getInstance().saveConfig();
 			
-			Main.ICE.addPlayer(player);
+			EpicScoreboardManager.ICE.addPlayer(player);
 			
 			Messager.sendBC("&b" + player.getName() + " joined ICE team.");
 		} else if (team == Team.NETHER) {
@@ -124,14 +125,14 @@ public class TeamManager {
 			Main.getInstance().getConfig().set("teams.nether.total", Main.getInstance().getConfig().getInt("teams.nether.total") + 1);
 			Main.getInstance().saveConfig();
 
-			Main.NETHER.addPlayer(player);
+			EpicScoreboardManager.NETHER.addPlayer(player);
 			
 			Messager.sendBC("&c" + player.getName() + " joined NETHER team.");
 		} else if (team == Team.NONE) {
 			Main.getInstance().getConfig().set("players.data." + player.getUniqueId().toString() + ".team", "NONE");
 			Main.getInstance().saveConfig();
 
-			Main.NONE.addPlayer(player);
+			EpicScoreboardManager.NONE.addPlayer(player);
 		}	
 	}
 	

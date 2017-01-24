@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 
 import com.gmail.justbru00.blazesmp.abilities.AbilitiesManager;
 import com.gmail.justbru00.blazesmp.enums.WarState;
+import com.gmail.justbru00.blazesmp.scoreboard.EpicScoreboardManager;
 import com.gmail.justbru00.blazesmp.utils.Messager;
 import com.gmail.justbru00.blazesmp.utils.chestlock.ChestLocks;
 import com.gmail.justbru00.blazesmp.utils.cores.CoreManager;
@@ -39,10 +40,8 @@ public class WarManager {
 	
 	@SuppressWarnings("deprecation")
 	public static void everySecond() {
-		if (timeLeft < -5) {
-			return;
-		}
-		
+		EpicScoreboardManager.updateScoreboard();
+				
 		if (timeLeft == -1) { // Change state
 			if (CURRENT_WAR_STATE == WarState.PEACE) {
 				return;
@@ -56,17 +55,64 @@ public class WarManager {
 					p.sendTitle(Messager.color("&cWAR HAS STARTED"), Messager.color("&7Use /peace to propose a truce"));
 				}
 			} else if (CURRENT_WAR_STATE == WarState.DURING) {
-				
+				// War ended without a winner	
+				CoreManager.setCoresEnabled(false);
+				CURRENT_WAR_STATE = WarState.END;
+				timeLeft = 4;
+				for (Player p : Bukkit.getOnlinePlayers()) {
+					p.sendTitle(Messager.color("&cWAR HAS ENDED"), Messager.color("&aThere was no winner"));
+				}
+			} else if (CURRENT_WAR_STATE == WarState.END) {
+				CoreManager.setCoresEnabled(false);
+				CURRENT_WAR_STATE = WarState.COOLDOWN;
+				timeLeft = AFTER_WAR_COOLDOWN;
+				for (Player p : Bukkit.getOnlinePlayers()) {
+					p.sendTitle(Messager.color("&cNo war can start"), Messager.color("&7until the cooldown is over"));
+				}
+			} else if (CURRENT_WAR_STATE == WarState.COOLDOWN) {
+				CURRENT_WAR_STATE = WarState.PEACE;
+				timeLeft = 0;
+				for (Player p : Bukkit.getOnlinePlayers()) {
+					p.sendTitle(Messager.color("&aWar can be started"), Messager.color("&7The cooldown is over"));
+				}
 			}
-		} 		
-			
-		// TODO Display time left with scoreboard
-		Messager.sendBC("Time left: " + timeLeft + " state = " + CURRENT_WAR_STATE);
+		} 					
+		
+		//Messager.sendBC("Time left: " + timeLeft + " state = " + CURRENT_WAR_STATE);
 		timeLeft = timeLeft -1;
 	}
 	
 	private static void setWarState(WarState ws) {
 		CURRENT_WAR_STATE = ws;
+	}
+	
+	public static String getCurrentObjective() {
+		if (CURRENT_WAR_STATE == WarState.DURING) {
+			return "&cWAR";
+		} else if (CURRENT_WAR_STATE == WarState.COOLDOWN) {
+			return "&cWar Cooldown";
+		} else {
+			return "&aNormal Survival";
+		}
+		
+		
+		
+	}
+	
+	public static String getTimeLeftFormated() {
+		if (timeLeft == -1) {
+			return "Forever";
+		}	
+	
+		int hours;
+		int mins;
+		int seconds;
+		hours = (timeLeft % 86400 ) / 3600 ;
+		mins = ((timeLeft % 86400 ) % 3600 ) / 60; 
+		seconds = ((timeLeft % 86400 ) % 3600 ) % 60;
+		
+		
+		return hours + ":" + mins + ":" + seconds;
 	}
 	
 }

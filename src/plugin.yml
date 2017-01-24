@@ -2,7 +2,7 @@ name: BlazeSMP
 version: 1.0
 main: com.gmail.justbru00.blazesmp.main.Main
 
-softdepend: [ResourcePackApi, TitleManager]
+softdepend: [ResourcePackApi, TitleManager, SidebarAPI]
 
 commands:
   blazesmpadmin:

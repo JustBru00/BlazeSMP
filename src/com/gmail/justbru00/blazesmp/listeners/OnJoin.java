@@ -8,6 +8,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import com.gmail.justbru00.blazesmp.enums.Team;
 import com.gmail.justbru00.blazesmp.main.Main;
+import com.gmail.justbru00.blazesmp.scoreboard.EpicScoreboardManager;
 import com.gmail.justbru00.blazesmp.utils.Debug;
 import com.gmail.justbru00.blazesmp.utils.Messager;
 import com.gmail.justbru00.blazesmp.utils.team.TeamManager;
@@ -36,7 +37,7 @@ public class OnJoin implements Listener {
 		if (TeamManager.getTeam(player) == Team.ICE) {	
 			Debug.send("Ice player joined");
 			
-			Main.ICE.addPlayer(player);
+			EpicScoreboardManager.ICE.addPlayer(player);
 			
 			for(Player online : Bukkit.getOnlinePlayers()) {
 				if (TeamManager.getTeam(online) == Team.ICE) {
@@ -46,7 +47,7 @@ public class OnJoin implements Listener {
 		} else if (TeamManager.getTeam(player) == Team.NETHER) { 			
 			Debug.send("Nether player joined.");
 			
-			Main.NETHER.addPlayer(player);
+			EpicScoreboardManager.NETHER.addPlayer(player);
 			
 			for(Player online : Bukkit.getOnlinePlayers()) {
 				if (TeamManager.getTeam(online) == Team.NETHER) {
