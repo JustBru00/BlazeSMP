@@ -54,7 +54,7 @@ public class EpicScoreboardManager {
 		SidebarString iceLine6 = new SidebarString(Messager.color("&6" +WarManager.getTimeLeftFormated()));
 		SidebarString iceLine7 = new SidebarString(Messager.color("&c"));
 		SidebarString iceLine8 = new SidebarString(Messager.color("&7Objective: "));
-		SidebarString iceLine9 = new SidebarString(Messager.color(WarManager.getCurrentObjective()));
+		SidebarString iceLine9 = new SidebarString(Messager.color(WarManager.getCurrentObjective(com.gmail.justbru00.blazesmp.enums.Team.ICE)));
 		
 		Sidebar iceSideBar = new Sidebar(Messager.color(Main.PREFIX), Main.getInstance(), 60, iceLine1, iceLine2, iceLine3, iceLine4, iceLine5, iceLine6, iceLine7, iceLine8, iceLine9);
 		
@@ -80,7 +80,7 @@ public class EpicScoreboardManager {
 				SidebarString netherLine6 = new SidebarString(Messager.color("&6" +WarManager.getTimeLeftFormated()));
 				SidebarString netherLine7 = new SidebarString(Messager.color("&c"));
 				SidebarString netherLine8 = new SidebarString(Messager.color("&7Objective: "));
-				SidebarString netherLine9 = new SidebarString(Messager.color(WarManager.getCurrentObjective()));
+				SidebarString netherLine9 = new SidebarString(Messager.color(WarManager.getCurrentObjective(com.gmail.justbru00.blazesmp.enums.Team.NETHER)));
 				
 				Sidebar netherSideBar = new Sidebar(Messager.color(Main.PREFIX), Main.getInstance(), 60, netherLine1, netherLine2, netherLine3, netherLine4, netherLine5, netherLine6, netherLine7, netherLine8, netherLine9);
 				

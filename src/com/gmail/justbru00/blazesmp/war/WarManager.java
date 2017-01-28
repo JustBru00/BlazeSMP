@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import com.gmail.justbru00.blazesmp.abilities.AbilitiesManager;
+import com.gmail.justbru00.blazesmp.enums.Team;
 import com.gmail.justbru00.blazesmp.enums.WarState;
 import com.gmail.justbru00.blazesmp.scoreboard.EpicScoreboardManager;
 import com.gmail.justbru00.blazesmp.utils.Messager;
@@ -36,6 +37,10 @@ public class WarManager {
 	 */
 	public static int AFTER_WAR_COOLDOWN = 600;
 	
+	public static boolean hasATeamWon = false;
+	
+	public static Team winner = Team.NONE;
+	
 	public static int timeLeft = -1;
 	
 	@SuppressWarnings("deprecation")
@@ -58,12 +63,21 @@ public class WarManager {
 				// War ended without a winner	
 				CoreManager.setCoresEnabled(false);
 				CURRENT_WAR_STATE = WarState.END;
-				timeLeft = 4;
-				for (Player p : Bukkit.getOnlinePlayers()) {
-					p.sendTitle(Messager.color("&cWAR HAS ENDED"), Messager.color("&aThere was no winner"));
+				timeLeft = 4;				
+				
+				if (hasATeamWon == false) {				
+					for (Player p : Bukkit.getOnlinePlayers()) {
+						p.sendTitle(Messager.color("&cWAR HAS ENDED"), Messager.color("&aThere was no winner"));
+					}
+				} else {
+					for (Player p : Bukkit.getOnlinePlayers()) {
+						p.sendTitle(Messager.color("&cLooting Time Ended"), Messager.color("&aYou can resume normal survival"));
+					}
 				}
 			} else if (CURRENT_WAR_STATE == WarState.END) {
 				CoreManager.setCoresEnabled(false);
+				winner = Team.NONE;
+				hasATeamWon = false;
 				CURRENT_WAR_STATE = WarState.COOLDOWN;
 				timeLeft = AFTER_WAR_COOLDOWN;
 				for (Player p : Bukkit.getOnlinePlayers()) {
@@ -86,17 +100,31 @@ public class WarManager {
 		CURRENT_WAR_STATE = ws;
 	}
 	
-	public static String getCurrentObjective() {
+	public static String getCurrentObjective(Team forTeam) {
 		if (CURRENT_WAR_STATE == WarState.DURING) {
-			return "&cWAR";
+			if (hasATeamWon) {
+				if (winner == Team.NETHER) {
+					if (forTeam == Team.NETHER) {
+						return "&cLoot Enemies Chests";
+					} else {
+						return "&cDefend Chests";
+					}
+				} else if (winner == Team.ICE) {
+					if (forTeam == Team.ICE) {
+						return "&cLoot Enemies Chests";
+					} else {
+						return "&cDefend Chests";
+					}
+				}
+			} else {
+				return "&cWAR";
+			}			
 		} else if (CURRENT_WAR_STATE == WarState.COOLDOWN) {
 			return "&cWar Cooldown";
 		} else {
 			return "&aNormal Survival";
 		}
-		
-		
-		
+		return null;		
 	}
 	
 	public static String getTimeLeftFormated() {

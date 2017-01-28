@@ -119,9 +119,9 @@ public class Main extends JavaPlugin implements CommandExecutor {
 		@SuppressWarnings("unused")
 		BukkitTask task = new TimerRunnable().runTaskTimer(plugin, 20, 20);
 		
-		Core core = new Core(com.gmail.justbru00.blazesmp.enums.Team.NETHER, -194, 66, 204, Bukkit.getWorld("world"));		
+		Core core = new Core(com.gmail.justbru00.blazesmp.enums.Team.NETHER, 61, 28, -549, Bukkit.getWorld("testworld"));		
 		// -147 66 214
-		Core core2 = new Core(com.gmail.justbru00.blazesmp.enums.Team.ICE, -147, 66, 214, Bukkit.getWorld("world"));	
+		Core core2 = new Core(com.gmail.justbru00.blazesmp.enums.Team.ICE, 61, 27, -411, Bukkit.getWorld("testworld"));	
 		
 		Messager.msgConsole("&aEnable Complete!!!");	
 	}
