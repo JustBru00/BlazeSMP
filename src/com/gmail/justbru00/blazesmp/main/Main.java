@@ -42,6 +42,7 @@ public class Main extends JavaPlugin implements CommandExecutor {
 	public static String PREFIX = Messager.color("&8[&6Blaze&cSMP&8] &f");
 	public static Main plugin;	
 	public PluginFile teamRequestsFile = null;
+	public PluginFile homesStorage = null;
 	
 
 	@Override
@@ -93,6 +94,7 @@ public class Main extends JavaPlugin implements CommandExecutor {
 		// Configs
 		saveDefaultConfig();
 		teamRequestsFile = new PluginFile(this, "teamrequests.yml", "teamrequests.yml");
+		homesStorage = new PluginFile(this, "homes.yml", "homes.yml");
 		
 		readyScoreboardTeams();
 		TeamManager.refreshRequestsFromConfig();

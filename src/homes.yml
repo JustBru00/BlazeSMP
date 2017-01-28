@@ -1,0 +1,16 @@
+#The Storage of homes for players
+
+data:
+  UUID:
+    home_names:
+      - 'name_here'
+      - 'other_here'
+    homes:
+      name_here:
+        x: 0
+        y: 0
+        z: 0
+        pitch: 0
+        yaw: 0
+        world: 'testworld'
+        icon: 'DIAMOND_PICKAXE'
