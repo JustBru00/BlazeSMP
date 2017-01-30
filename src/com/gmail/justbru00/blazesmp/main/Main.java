@@ -17,6 +17,7 @@ import org.bukkit.scoreboard.Team;
 
 import com.gmail.justbru00.blazesmp.commands.BlazeSMPAdmin;
 import com.gmail.justbru00.blazesmp.commands.Event;
+import com.gmail.justbru00.blazesmp.commands.Peace;
 import com.gmail.justbru00.blazesmp.commands.RequestTeam;
 import com.gmail.justbru00.blazesmp.listeners.BlazeSMPAdminMain;
 import com.gmail.justbru00.blazesmp.listeners.OnBlockBreak;
@@ -106,7 +107,7 @@ public class Main extends JavaPlugin implements CommandExecutor {
 		getCommand("blazesmpadmin").setExecutor(new BlazeSMPAdmin());
 		getCommand("requestteam").setExecutor(new RequestTeam());
 		getCommand("event").setExecutor(new Event());
-		
+		getCommand("peace").setExecutor(new Peace());
 	
 		
 		// Listeners

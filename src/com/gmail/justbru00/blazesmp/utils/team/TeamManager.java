@@ -21,6 +21,10 @@ public class TeamManager {
 		EpicScoreboardManager.NETHER.setAllowFriendlyFire(b);		
 	}
 	
+	public static TeamNumberOnline getOnline() {
+		return new TeamNumberOnline();
+	}
+	
 	public static void refreshRequestsFromConfig() {
 		
 		teamChangeRequests = new ArrayList<TeamChangeRequest>();

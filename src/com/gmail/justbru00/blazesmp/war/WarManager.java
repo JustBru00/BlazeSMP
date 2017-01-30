@@ -1,5 +1,7 @@
 package com.gmail.justbru00.blazesmp.war;
 
+import java.util.ArrayList;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -10,6 +12,7 @@ import com.gmail.justbru00.blazesmp.scoreboard.EpicScoreboardManager;
 import com.gmail.justbru00.blazesmp.utils.Messager;
 import com.gmail.justbru00.blazesmp.utils.chestlock.ChestLocks;
 import com.gmail.justbru00.blazesmp.utils.cores.CoreManager;
+import com.gmail.justbru00.blazesmp.utils.team.TeamManager;
 
 public class WarManager {
 	/**
@@ -42,6 +45,10 @@ public class WarManager {
 	public static Team winner = Team.NONE;
 	
 	public static int timeLeft = -1;
+	
+	public static ArrayList<String> icePeace = new ArrayList<String>(); 
+	
+	public static ArrayList<String> netherPeace = new ArrayList<String>(); 
 	
 	@SuppressWarnings("deprecation")
 	public static void everySecond() {
@@ -78,6 +85,8 @@ public class WarManager {
 				CoreManager.setCoresEnabled(false);
 				winner = Team.NONE;
 				hasATeamWon = false;
+				icePeace = new ArrayList<String>();
+				netherPeace = new ArrayList<String>();
 				CURRENT_WAR_STATE = WarState.COOLDOWN;
 				timeLeft = AFTER_WAR_COOLDOWN;
 				for (Player p : Bukkit.getOnlinePlayers()) {
@@ -92,10 +101,51 @@ public class WarManager {
 			}
 		} 					
 		
+		
 		//Messager.sendBC("Time left: " + timeLeft + " state = " + CURRENT_WAR_STATE);
 		timeLeft = timeLeft -1;
 	}
 	
+		
+	public static void proposePeace(Team from, Player p) {
+		
+		if (from == Team.ICE) {
+			if (icePeace.contains(p.getUniqueId().toString())) { // If player already asked for peace0
+				Messager.msgPlayer("&cYou already proposed peace.", p);
+				return;
+			} else {
+				icePeace.add(p.getUniqueId().toString());				
+			}
+		} else if (from == Team.NETHER) {
+			if (netherPeace.contains(p.getUniqueId().toString())) { // If player already asked for peace
+				Messager.msgPlayer("&cYou already proposed peace.", p);
+				return;
+			} else {
+				netherPeace.add(p.getUniqueId().toString());				
+			}
+		}
+		
+		Messager.sendBC("&a" + p.getName() + " proposed peace. Everyone online on both teams must agree for peace.");
+		tryPeace();
+	}
+	
+	public static void tryPeace() {
+		int netherOnline = 0;
+		int iceOnline = 0;
+		
+		iceOnline = TeamManager.getOnline().getIce();
+		netherOnline = TeamManager.getOnline().getNether();
+		
+		if ((netherOnline) <= netherPeace.size()) {
+			if ((iceOnline) <= icePeace.size()) {
+				CURRENT_WAR_STATE = WarState.END;
+				timeLeft = 0;
+				Messager.sendBC("&aPeace has been established.");
+			}
+		}
+	}
+	
+	@SuppressWarnings("unused")
 	private static void setWarState(WarState ws) {
 		CURRENT_WAR_STATE = ws;
 	}
